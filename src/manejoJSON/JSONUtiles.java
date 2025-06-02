@@ -11,9 +11,9 @@ import org.json.JSONTokener;
 
 public class JSONUtiles {
 
-    public static void grabar(JSONArray array) {
+    public static void grabar(JSONArray array, String archivo) {
         try {
-            FileWriter file = new FileWriter("hospitalAgenda.json");
+            FileWriter file = new FileWriter(archivo);
             file.write(array.toString(4));
             file.flush();
             file.close();
@@ -24,8 +24,8 @@ public class JSONUtiles {
             throw new RuntimeException(e);
         }
     }
-    public static void grabar(JSONObject objeto) {
-        try (FileWriter file = new FileWriter("hospital.json")) {
+    public static void grabar(JSONObject objeto, String archivo) {
+        try (FileWriter file = new FileWriter(archivo)) {
             file.write(objeto.toString(4));
         } catch (IOException | JSONException e) {
             e.printStackTrace();

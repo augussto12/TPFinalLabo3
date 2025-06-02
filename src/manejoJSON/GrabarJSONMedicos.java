@@ -17,7 +17,7 @@ public class GrabarJSONMedicos {
         medico.put("dni",22303313);
 
         archivo.put(medico);
-        JSONUtiles.grabar(archivo);
+        //JSONUtiles.grabar(archivo,"");
 
     }
 
