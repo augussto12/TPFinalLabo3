@@ -1,0 +1,42 @@
+{"turnos": [
+    {
+        "paciente": {
+            "nombre": "Miranda Sanchez",
+            "contrasenia": "Msanchez",
+            "edad": 41,
+            "telefono": 2236819341,
+            "dni": "33.561.992"
+        },
+        "fecha": "12/10/2025 16:30",
+        "motivo": " me duele el pecho",
+        "medico": {
+            "nombre": "Lisandro Lopez",
+            "contrasenia": "Llopez",
+            "edad": 38,
+            "telefono": 223671121,
+            "especialidad": "PEDIATRIA",
+            "id": 2,
+            "dni": "35.235.712"
+        }
+    },
+    {
+        "paciente": {
+            "nombre": "Jorge Campos",
+            "contrasenia": "Jcampos",
+            "edad": 58,
+            "telefono": 2236839134,
+            "dni": "22.356.188"
+        },
+        "fecha": "28/08/2025 10:00",
+        "motivo": "me duele la cabeza",
+        "medico": {
+            "nombre": "Martin Dominguez",
+            "contrasenia": "Mdominguez",
+            "edad": 27,
+            "telefono": 2236983121,
+            "especialidad": "NEUROLOGIA",
+            "id": 4,
+            "dni": "41.577.721"
+        }
+    }
+]}

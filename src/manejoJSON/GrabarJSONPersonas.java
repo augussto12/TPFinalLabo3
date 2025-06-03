@@ -19,8 +19,7 @@ public class GrabarJSONPersonas {
             System.out.printf("\nNombre:");
             String nombre = scan.nextLine();
             System.out.printf("\nDni:");
-            long dni = scan.nextLong();
-            scan.nextLine();
+            String dni = scan.nextLine();
             System.out.printf("\nTel:");
             long telefono = scan.nextLong();
             scan.nextLine();
@@ -54,13 +53,13 @@ public class GrabarJSONPersonas {
                     
             }
 
-            personaJSON.put("Nombre", nombre);
-            personaJSON.put("Dni",dni);
-            personaJSON.put("Telefono",telefono);
-            personaJSON.put("Edad", edad);
-            personaJSON.put("Id", i);
-            personaJSON.put("Especialidad", especialidad);
-            personaJSON.put("Contrasenia",contrasenia);
+            personaJSON.put("nombre", nombre);
+            personaJSON.put("dni",dni);
+            personaJSON.put("telefono",telefono);
+            personaJSON.put("edad", edad);
+            personaJSON.put("id", i+1);
+            personaJSON.put("especialidad", especialidad);
+            personaJSON.put("contrasenia",contrasenia);
 
             archivo.put(personaJSON);
             System.out.printf("\nSe agrego");
@@ -73,8 +72,7 @@ public class GrabarJSONPersonas {
             System.out.printf("\nContrasenia:");
             String contrasenia = scan.nextLine();
             System.out.printf("\nDni:");
-            long dni1 = scan.nextLong();
-            scan.nextLine();
+            String dni1 = scan.nextLine();
             System.out.printf("\nTel:");
             long telefono1 = scan.nextLong();
             scan.nextLine();
@@ -84,11 +82,11 @@ public class GrabarJSONPersonas {
 
 
 
-            personaJSON1.put("Nombre", nombre1);
-            personaJSON1.put("Contrasenia", contrasenia);
-            personaJSON1.put("Dni",dni1);
-            personaJSON1.put("Telefono",telefono1);
-            personaJSON1.put("Edad", edad1);
+            personaJSON1.put("nombre", nombre1);
+            personaJSON1.put("contrasenia", contrasenia);
+            personaJSON1.put("dni",dni1);
+            personaJSON1.put("telefono",telefono1);
+            personaJSON1.put("edad", edad1);
 
             archivo.put(personaJSON1);
 

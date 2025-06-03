@@ -26,8 +26,8 @@ public class LeerArchivoAgenda {
             JSONObject turnojson = turnosJSON.getJSONObject(i);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("Fecha"), formatter);
-            String motivo = turnojson.getString("Motivo");
+            LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("fecha"), formatter);
+            String motivo = turnojson.getString("motivo");
 
             JSONObject pacientejson = turnojson.getJSONObject("paciente");
             Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"),pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
