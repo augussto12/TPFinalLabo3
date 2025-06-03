@@ -14,13 +14,7 @@ public class Turno {
     private String motivo;
     private int idTurno;
 
-    public Turno (LocalDateTime fecha, Medico medico, Paciente cliente, String motivo) {
-        this.fecha = fecha;
-        this.medico = medico;
-        this.cliente = cliente;
-        this.motivo = motivo;
 
-    }
 
     public Turno (LocalDateTime fecha, Medico medico, Paciente cliente, String motivo,int idTurno) {
         this.fecha = fecha;

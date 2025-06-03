@@ -28,6 +28,7 @@ public class LeerArchivoAgenda {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("fecha"), formatter);
             String motivo = turnojson.getString("motivo");
+            int idTurno = turnojson.getInt("idTurno");
 
             JSONObject pacientejson = turnojson.getJSONObject("paciente");
             Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"),pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
@@ -37,7 +38,7 @@ public class LeerArchivoAgenda {
             Especialidades especialidad = Especialidades.valueOf(especialidadjson);
             Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"),medicoJSON.getString("dni"), medicoJSON.getLong("telefono"),medicoJSON.getString("contrasenia") ,especialidad, medicoJSON.getInt("id"));
 
-            Turno turno = new Turno(fecha, medico, paciente, motivo);
+            Turno turno = new Turno(fecha, medico, paciente, motivo,idTurno);
             turnos.add(turno);
 
         }

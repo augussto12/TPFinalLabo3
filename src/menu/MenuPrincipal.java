@@ -112,6 +112,7 @@ public class MenuPrincipal {
                 Agenda.eliminarUnTurnoMio(idAeliminar,agenda);
                 System.out.printf("\nTurnos actualizados: ");
                 Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                menuUser(paciente);
                 break;
             case 4:
                 Agenda.mostrarTodosMisTurnos(paciente,pacientes);

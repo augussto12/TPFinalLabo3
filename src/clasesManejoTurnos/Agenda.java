@@ -10,6 +10,7 @@ import org.json.JSONException;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -59,7 +60,19 @@ public class Agenda {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
         Agenda agenda = LeerArchivoAgenda.LeerArchivo();
-        int contador = agenda.getAgenda().size() + 1;
+        int idTurno;
+        boolean idRepetido;
+        do {
+            idTurno = (int) (Math.random() * 1000);
+            idRepetido = false;
+
+            for (Turno t : agenda.getAgenda()) {
+                if (t.getIdTurno() == idTurno) {
+                    idRepetido = true;
+                    break;
+                }
+            }
+        } while (idRepetido);
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Fecha para cuando quiere sacar turno");
@@ -88,10 +101,9 @@ public class Agenda {
         Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
-        Turno turno = new Turno(fecha, medico, paciente, motivo,contador);
+        Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
         return turno;
     }
-
 
 
     public static Paciente encontrarPaciente(String dni, List<Paciente> pacientes) {
@@ -125,10 +137,12 @@ public class Agenda {
 
     public static void eliminarUnTurnoMio(int idAeliminar, Agenda agenda) throws JSONException {
         agenda = LeerArchivoAgenda.LeerArchivo();
-        for (Turno t : agenda.getAgenda()) {
+        Iterator<Turno> iterator = agenda.getAgenda().iterator();
+        while (iterator.hasNext()) {
+            Turno t = iterator.next();
             if (idAeliminar == t.getIdTurno()) {
-                agenda.getAgenda().remove(t);
-                System.out.printf("\nSe elimino con exito");
+                iterator.remove();
+                System.out.println("\nSe eliminó con éxito");
             }
         }
         GrabarJSONAgenda.llenarAgenda(agenda);

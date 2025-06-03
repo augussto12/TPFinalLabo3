@@ -77,6 +77,7 @@ public class GrabarJSONAgenda {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime fecha = LocalDateTime.parse(turnoJSON.getString("fecha"), formatter);
             String motivo = turnoJSON.getString("motivo");
+            int idTurno = turnoJSON.getInt("idTurno");
 
             JSONObject pacienteJSON = turnoJSON.getJSONObject("paciente");
             Paciente paciente = new Paciente(pacienteJSON.getString("nombre"), pacienteJSON.getInt("edad"), pacienteJSON.getString("dni"),pacienteJSON.getLong("telefono"), pacienteJSON.getString("contrasenia"));
@@ -86,7 +87,7 @@ public class GrabarJSONAgenda {
             Especialidades especialidad = Especialidades.valueOf(especialidadJSON);
             Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"),medicoJSON.getString("contrasenia"),especialidad, medicoJSON.getInt("id"));
 
-            Turno turnoNuevo = new Turno(fecha,medico,paciente,motivo);
+            Turno turnoNuevo = new Turno(fecha,medico,paciente,motivo,idTurno);
             turnos.getAgenda().add(turnoNuevo);
 
         }
