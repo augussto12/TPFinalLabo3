@@ -17,13 +17,13 @@ public class ListaMedicos{
                 System.out.printf("\nEse medico ya existe.");
             }else{
                 int id = medicos.size() + 1; // ID incremental basado en el tamaño
-                Medico medico = new Medico(nombre,telefono, dni, edad, id);
+                Medico medico = new Medico(nombre,telefono, dni, edad,especialidad, id);
                 medicos.add(medico);
             }
         }
         //cargar en archivo JSON
     }
-    public Medico buscarMedicoPorId(int id)  {
+    public static Medico buscarMedicoPorId(int id, List<Medico>medicos)  {
         Medico medico = null;
         for (Medico m : medicos){
             if (m.getId() == id){

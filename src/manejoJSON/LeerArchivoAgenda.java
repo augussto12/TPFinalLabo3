@@ -1,0 +1,49 @@
+package manejoJSON;
+
+import clasesManejoTurnos.Agenda;
+import clasesManejoTurnos.Turno;
+import clasesPersonas.Medico;
+import clasesPersonas.Paciente;
+import extras.Especialidades;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LeerArchivoAgenda {
+    public static Agenda LeerArchivo() throws JSONException {
+
+        JSONObject archivo = new JSONObject(JSONUtiles.leer("hospitalAgenda.json"));
+
+        JSONArray turnosJSON = archivo.getJSONArray("turnos");
+        List<Turno> turnos = new ArrayList<>();
+        for (int i = 0; i < turnosJSON.length(); i++) {
+
+            JSONObject turnojson = turnosJSON.getJSONObject(i);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("fecha"), formatter);
+            String motivo = turnojson.getString("motivo");
+
+            JSONObject pacientejson = turnojson.getJSONObject("paciente");
+            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getLong("telefono"), pacientejson.getLong("dni"), pacientejson.getInt("edad"));
+
+            JSONObject medicoJSON = turnojson.getJSONObject("medico");
+            String especialidadjson = medicoJSON.getString("especialidad");
+            Especialidades especialidad = Especialidades.valueOf(especialidadjson);
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getLong("telefono"), medicoJSON.getLong("dni"), medicoJSON.getInt("edad"), especialidad, medicoJSON.getInt("id"));
+
+            Turno turno = new Turno(fecha, medico, paciente, motivo);
+            turnos.add(turno);
+
+        }
+
+        Agenda agenda = new Agenda("Agenda turnos", turnos);
+
+        return agenda;
+    }
+}

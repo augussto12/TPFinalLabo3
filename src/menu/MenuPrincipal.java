@@ -9,7 +9,7 @@ public class MenuPrincipal {
         System.out.printf("\n======HOSPITAL========");
         System.out.printf("\n[ 1 ] Si es administrador.");
         System.out.printf("\n[ 2 ] Si es un paciente.");
-        System.out.printf("\n[ 0 ] S i desea terminar el programa");
+        System.out.printf("\n[ 0 ] Si desea terminar el programa");
         System.out.printf("\n\nSu eleccion: ");
         eleccion = scan.nextInt();
         switch (eleccion){
@@ -25,13 +25,9 @@ public class MenuPrincipal {
 
     }
     public static void menuAdmin (){
-        //agregar medico
-        //eliminar medico
-        //ver medicos
         //eliminar turno
-        //agregar turno
         //modificar turno
-        //ver turnos
+        //ver turnos propios
     }
 
     public static void menuUser (){
@@ -39,7 +35,7 @@ public class MenuPrincipal {
         //agregar turno
         //eliminar SU turno
         //modificar SU turno
-
+        //
     }
 
 }

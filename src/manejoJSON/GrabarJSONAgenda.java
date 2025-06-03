@@ -15,7 +15,6 @@ public class GrabarJSONAgenda {
     public static void llenarAgenda (Agenda turnos) throws JSONException {
 
         JSONObject agenda = new JSONObject();
-        agenda.put("nombre",turnos);
         JSONArray turnosjson = new JSONArray();
 
         for (Turno t : turnos.getAgenda()){
@@ -26,7 +25,7 @@ public class GrabarJSONAgenda {
             turnosjson.put(turnoJSON);
 
         }
-        agenda.put("turnos",agenda);
+        agenda.put("turnos",turnosjson);
 
         JSONUtiles.grabar(agenda,"hospitalAgenda.json");
 
@@ -44,7 +43,7 @@ public class GrabarJSONAgenda {
         medicoJSON.put("dni", medico.getDni());
         medicoJSON.put("telefono", medico.getTelefono());
         medicoJSON.put("edad", medico.getEdad());
-        medicoJSON.put("especialidad", medico.getEspecialidad().toString());
+        medicoJSON.put("especialidad", medico.getEspecialidad().name());
         turnoJSON.put("medico", medicoJSON);
 
         Paciente paciente = turno.getCliente();

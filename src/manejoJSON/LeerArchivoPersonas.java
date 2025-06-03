@@ -3,6 +3,7 @@ package manejoJSON;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
 import clasesPersonas.Persona;
+import extras.Especialidades;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,9 +30,11 @@ public class LeerArchivoPersonas {
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
                     long dni = personajson.getLong("dni");
-                    String especialidad = personajson.getString("especialidad");
+                    String especialidadjson = personajson.getString("especialidad");
 
-                    Medico m = new Medico(nombre, telefono, dni, edad, id);
+                    Especialidades especialidad = Especialidades.valueOf(especialidadjson);
+
+                    Medico m = new Medico(nombre, telefono, dni, edad,especialidad, id);
                     medicos.add(m);
                 }
 
@@ -58,6 +61,7 @@ public class LeerArchivoPersonas {
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
                     long dni = personajson.getLong("dni");
+                    //String contrasenia = personajson.getString("contrasenia");
 
                     Paciente p = new Paciente(nombre, telefono, dni, edad);
                     pacientes.add(p);
@@ -89,6 +93,7 @@ public class LeerArchivoPersonas {
             contador++;
             System.out.printf("\n------paciente " + contador + "--------");
             System.out.printf("\nnombre: " + p.getNombreYapellido());
+           // System.out.printf("\ncontrasenia: " + p.getContrasenia());
             System.out.printf("\nedad: " + p.getEdad());
             System.out.printf("\ntelefono: " + p.getTelefono());
             System.out.printf("\ndni: " + p.getNombreYapellido());

@@ -1,5 +1,6 @@
 package manejoJSON;
 
+import extras.Especialidades;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,9 +24,30 @@ public class GrabarJSONPersonas {
             long telefono = scan.nextLong();
             System.out.printf("\nedasd:");
             int edad = scan.nextInt();
-            System.out.printf("\nesp:");
+            Especialidades especialidad = null;
+            System.out.printf("\n[ 1 ] cardiologia");
+            System.out.printf("\n[ 2 ] pediatria");
+            System.out.printf("\n[ 3 ] clinica");
+            System.out.printf("\n[ 4 ] neurologia");
+            System.out.printf("\nsu eleccion:");
+            int eleccion = scan.nextInt();
             scan.nextLine();
-            String especialidad = scan.nextLine();
+            switch (eleccion){
+                case 1:
+                    especialidad = Especialidades.CARDIOLOGIA;
+                    break;
+                case 2:
+                    especialidad = Especialidades.PEDIATRIA;
+                    break; 
+                case 3:
+                    especialidad = Especialidades.CLINICA;
+                    break;
+                case 4:
+                    especialidad = Especialidades.NEUROLOGIA;                    
+                    break;
+                    
+                    
+            }
 
             personaJSON.put("nombre", nombre);
             personaJSON.put("dni",dni);
@@ -42,6 +64,8 @@ public class GrabarJSONPersonas {
             JSONObject personaJSON1 = new JSONObject();
             System.out.printf("\nnombre:");
             String nombre1 = scan.nextLine();
+            System.out.printf("\ncontrasenia:");
+            String contrasenia = scan.nextLine();
             System.out.printf("\ndni:");
             long dni1 = scan.nextLong();
             System.out.printf("\ntel:");
@@ -51,6 +75,7 @@ public class GrabarJSONPersonas {
             scan.nextLine();
 
             personaJSON1.put("nombre", nombre1);
+            personaJSON1.put("contrasenia", contrasenia);
             personaJSON1.put("dni",dni1);
             personaJSON1.put("telefono",telefono1);
             personaJSON1.put("edad", edad1);
