@@ -63,11 +63,44 @@ public class MenuPrincipal {
 
     }
 
-    public static void menuAdmin() {
+    public static void menuAdmin(Medico medico) throws JSONException {
         //eliminar turno
         //modificar turno
         //ver turnos propios
+
+        List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
+        List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
+
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        Scanner scan = new Scanner(System.in);
+        int opcion = 0;
+        System.out.println("\n====== MENÚ MÉDICO =======");
+        System.out.println("[ 1 ] Ver turnos");
+        System.out.println("[ 2 ] Reprogramar turno");
+       //dudoso //System.out.println("[ 3 ] Eliminar turno");
+        System.out.println("[ 0 ] Volver al menú principal");
+        System.out.printf("\nSu eleccion: ");
+        opcion = scan.nextInt();
+        scan.nextLine();
+        switch (opcion) {
+            case 1:
+                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
+                break;
+            case 2:
+                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
+                System.out.println("Ingrese el id del turno a reprogramar: ");
+                int idDeTurnoAreprogramar=scan.nextInt();
+                agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(),idDeTurnoAreprogramar));
+                //grabar
+                break;
+            case 0:
+                menu();
+                break;
+
+        }
+
     }
+
 
     public static void menuUser(Paciente paciente) throws JSONException {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
@@ -128,6 +161,7 @@ public class MenuPrincipal {
         }
 
     }
+
 
 
 

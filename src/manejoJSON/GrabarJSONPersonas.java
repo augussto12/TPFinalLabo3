@@ -49,8 +49,7 @@ public class GrabarJSONPersonas {
                 case 4:
                     especialidad = Especialidades.NEUROLOGIA;                    
                     break;
-                    
-                    
+
             }
 
             personaJSON.put("nombre", nombre);

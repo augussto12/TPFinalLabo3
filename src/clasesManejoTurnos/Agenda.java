@@ -73,26 +73,8 @@ public class Agenda {
                 }
             }
         } while (idRepetido);
-
         Scanner scan = new Scanner(System.in);
-        System.out.println("Fecha para cuando quiere sacar turno");
-        //Agenda agenda = new Agenda();
-        System.out.printf("\nAnio: ");
-        int anio = scan.nextInt();
-        scan.nextLine();
-        System.out.printf("\nMes: ");
-        int mes = scan.nextInt();
-        scan.nextLine();
-        System.out.printf("\nDia: ");
-        int dia = scan.nextInt();
-        scan.nextLine();
-        System.out.printf("\nHora: ");
-        int hora = scan.nextInt();
-        scan.nextLine();
-        System.out.printf("\nMinuto: ");
-        int minuto = scan.nextInt();
-        scan.nextLine();
-        LocalDateTime fecha = LocalDateTime.of(anio, mes, dia, hora, minuto);
+        LocalDateTime fecha = Turno.llenarFecha();
         System.out.printf("\nMEDICOS DISPONIBLES:");
         LeerArchivoPersonas.mostrarListaMedicos(medicos);
         System.out.printf("\nId medico:");

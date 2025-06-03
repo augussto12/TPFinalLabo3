@@ -12,7 +12,9 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class LeerArchivoAgenda {
     public static Agenda LeerArchivo() throws JSONException {
@@ -47,4 +49,54 @@ public class LeerArchivoAgenda {
 
         return agenda;
     }
+
+    public static void mostrarTurnosDeUnMedico(List<Turno> turnos,String medico)
+    {
+        for (Turno a:turnos)
+        {
+            if(a.getMedico().getNombreYapellido().equalsIgnoreCase(medico))
+            {
+                Agenda.mostrarUnTurno(a);
+            }
+        }
+    }
+
+    public static List<Turno> reprogramarTurno(List<Turno> turnos,int idAreprogramar)
+    {
+        Iterator<Turno> iterator = turnos.iterator();
+        while (iterator.hasNext()) {
+            Turno t = iterator.next();
+            if (idAreprogramar == t.getIdTurno()) {
+                System.out.println("Elija que campo quiere modificar: ");
+
+                Scanner scan = new Scanner(System.in);
+                int eleccion = 0;
+                System.out.println("\n======TURNOS========");
+                System.out.println("[ 1 ] Modificar motivos");
+                System.out.println("[ 2 ] Modificar fecha");
+                System.out.println("[ 0 ] Volver al menú principal");
+                System.out.printf("\nSu eleccion: ");
+                eleccion = scan.nextInt();
+                scan.nextLine();
+                switch (eleccion){
+            case 1:
+                System.out.println("Ingrese el motivo a cambiar: ");
+                String motivo=scan.nextLine();
+                t.setMotivo(motivo);
+                break;
+            case 2:
+                System.out.println("Ingrese la fecha actualizada");
+                LocalDateTime fecha=Turno.llenarFecha();
+                t.setFecha(fecha);
+                break;
+            case 0:
+                //
+                break;
+
+                }
+            }
+        }
+        return turnos;
+    }
+
 }
