@@ -30,8 +30,30 @@ public class MenuPrincipal {
         scan.nextLine();
         switch (eleccion) {
             case 1:
-                //chequeo si existe ese admin y si la contra es correcta
-                //menuAdmin();
+                System.out.printf("\nIngrese su ID: ");
+                int idMedico = scan.nextInt();
+                scan.nextLine();
+
+                List<Medico> medicos1 = LeerArchivoPersonas.llenarlistamedicos();
+                Medico medico = ListaMedicos.buscarMedicoPorId(idMedico, medicos);
+
+                if (medico == null) {
+                    System.out.println("\nMédico no encontrado.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
+                    menu();
+                }
+
+                System.out.printf("\nIngrese su contraseña: ");
+                String contraseniaMedico = scan.nextLine();
+                if (!medico.getContrasenia().equals(contraseniaMedico)) {
+                    System.out.println("\nContraseña incorrecta.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
+                    menu();
+                }
+
+                menuAdmin(medico);
                 break;
             case 2:
                 System.out.printf("\ningrese su DNI: ");
@@ -77,7 +99,6 @@ public class MenuPrincipal {
         System.out.println("\n====== MENÚ MÉDICO =======");
         System.out.println("[ 1 ] Ver turnos");
         System.out.println("[ 2 ] Reprogramar turno");
-       //dudoso //System.out.println("[ 3 ] Eliminar turno");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
         opcion = scan.nextInt();
@@ -85,13 +106,19 @@ public class MenuPrincipal {
         switch (opcion) {
             case 1:
                 LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin(medico);
                 break;
             case 2:
                 LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
-                System.out.println("Ingrese el id del turno a reprogramar: ");
+                System.out.println("\nIngrese el id del turno a reprogramar: ");
                 int idDeTurnoAreprogramar=scan.nextInt();
                 agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(),idDeTurnoAreprogramar));
-                //grabar
+                GrabarJSONAgenda.llenarAgenda(agenda);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin(medico);
                 break;
             case 0:
                 menu();
