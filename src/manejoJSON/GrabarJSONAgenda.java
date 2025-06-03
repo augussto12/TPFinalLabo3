@@ -1,5 +1,6 @@
 package manejoJSON;
 
+import clasesManejoTurnos.Agenda;
 import clasesManejoTurnos.Turno;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
@@ -8,13 +9,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class GrabarJSONAgenda {
-    public static void llenarAgenda (Turno turno) throws JSONException {
+    public static void llenarAgenda (Agenda turnos) throws JSONException {
 
-        //JSONArray archivo = new JSONArray();
-        JSONObject archivo = new JSONObject(JSONUtiles.leer("hospitalAgenda.json"));
-        JSONArray agenda = archivo.getJSONArray("AgendaTUrnos");
+        JSONObject agenda = new JSONObject();
+        agenda.put("nombre",turnos);
+        JSONArray turnosjson = new JSONArray();
+
+        for (Turno t : turnos.getAgenda()){
+
+            JSONObject turnoJSON = new JSONObject();
+
+            turnoJSON = llenarTurno(t);
+            turnosjson.put(turnoJSON);
+
+        }
+        agenda.put("turnos",agenda);
+
+        JSONUtiles.grabar(agenda,"hospitalAgenda.json");
+
+    }
+    public static JSONObject llenarTurno (Turno turno) throws JSONException {
 
         JSONObject turnoJSON = new JSONObject();
         turnoJSON.put("fecha", turno.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
@@ -38,11 +55,6 @@ public class GrabarJSONAgenda {
         pacienteJSON.put("edad", paciente.getEdad());
         turnoJSON.put("paciente", pacienteJSON);
 
-        agenda.put(turnoJSON);
-
-        archivo.put("AgendaTurnos",agenda);
-
-        JSONUtiles.grabar(archivo,"hospitalAgenda.json");
-
+        return  turnoJSON;
     }
 }

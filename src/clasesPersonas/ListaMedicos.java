@@ -11,13 +11,13 @@ public class ListaMedicos{
         this.medicos = new ArrayList<>();
     }
 
-    public void agregarMedico(String nombre, long dni, long telefono, Especialidades especialidad,int edad )  {
+    public void agregarMedico (String nombre, long dni, long telefono, Especialidades especialidad,int edad )  {
         for (Medico m : medicos){
             if (m.getDni() == dni){
                 System.out.printf("\nEse medico ya existe.");
             }else{
                 int id = medicos.size() + 1; // ID incremental basado en el tamaño
-                Medico medico = new Medico(nombre,telefono, dni, edad, especialidad,id);
+                Medico medico = new Medico(nombre,telefono, dni, edad, id);
                 medicos.add(medico);
             }
         }

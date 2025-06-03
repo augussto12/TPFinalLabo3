@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class Agenda {
     private List<Turno> agenda;
     private ListaMedicos listaMedicos;
+    private String nombre;
 
 
     public void programarTurno(LocalDateTime fecha, int idMedico, Paciente paciente, String motivo, boolean esAdmin, long dniUsuarioActual) {

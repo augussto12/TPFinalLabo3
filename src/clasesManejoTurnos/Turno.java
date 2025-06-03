@@ -20,6 +20,9 @@ public class Turno {
         this.motivo = motivo;
     }
 
+    public Turno() {
+    }
+
     public LocalDateTime getFecha() {
         return fecha;
     }
