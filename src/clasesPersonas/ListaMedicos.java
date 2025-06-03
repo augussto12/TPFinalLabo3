@@ -3,6 +3,7 @@ import extras.Especialidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListaMedicos{
     private List<Medico> medicos;
@@ -11,13 +12,13 @@ public class ListaMedicos{
         this.medicos = new ArrayList<>();
     }
 
-    public void agregarMedico (String nombre, long dni, long telefono, Especialidades especialidad,int edad )  {
+    public void agregarMedico (String nombre, String dni, long telefono, Especialidades especialidad,int edad,String contrasenia )  {
         for (Medico m : medicos){
-            if (m.getDni() == dni){
+            if (Objects.equals(m.getDni(), dni)){
                 System.out.printf("\nEse medico ya existe.");
             }else{
                 int id = medicos.size() + 1; // ID incremental basado en el tamaño
-                Medico medico = new Medico(nombre,telefono, dni, edad,especialidad, id);
+                Medico medico = new Medico(nombre,edad,dni,telefono,contrasenia,especialidad,id);
                 medicos.add(medico);
             }
         }
@@ -33,7 +34,7 @@ public class ListaMedicos{
         return medico;
     }
 
-    public void listarMedicos() {
+    public static void listarMedicos(List<Medico>medicos) {
         if (medicos.isEmpty()) {
             System.out.println("No hay médicos registrados.");
         } else {

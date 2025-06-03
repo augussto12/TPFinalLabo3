@@ -26,16 +26,16 @@ public class LeerArchivoAgenda {
             JSONObject turnojson = turnosJSON.getJSONObject(i);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("fecha"), formatter);
-            String motivo = turnojson.getString("motivo");
+            LocalDateTime fecha = LocalDateTime.parse(turnojson.getString("Fecha"), formatter);
+            String motivo = turnojson.getString("Motivo");
 
             JSONObject pacientejson = turnojson.getJSONObject("paciente");
-            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getLong("telefono"), pacientejson.getLong("dni"), pacientejson.getInt("edad"));
+            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"),pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
 
             JSONObject medicoJSON = turnojson.getJSONObject("medico");
             String especialidadjson = medicoJSON.getString("especialidad");
             Especialidades especialidad = Especialidades.valueOf(especialidadjson);
-            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getLong("telefono"), medicoJSON.getLong("dni"), medicoJSON.getInt("edad"), especialidad, medicoJSON.getInt("id"));
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"),medicoJSON.getString("dni"), medicoJSON.getLong("telefono"),medicoJSON.getString("contrasenia") ,especialidad, medicoJSON.getInt("id"));
 
             Turno turno = new Turno(fecha, medico, paciente, motivo);
             turnos.add(turno);

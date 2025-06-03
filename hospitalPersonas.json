@@ -1,0 +1,95 @@
+[
+    {
+        "Nombre": "Pedro Aguero",
+        "Contrasenia": "pedrito",
+        "Edad": 27,
+        "Telefono": 223657412,
+        "Especialidad": "CARDIOLOGIA",
+        "Id": 0,
+        "Dni": 39759382
+    },
+    {
+        "Nombre": "Lisandro Lopez",
+        "Contrasenia": "llopez",
+        "Edad": 47,
+        "Telefono": 22356612,
+        "Especialidad": "PEDIATRIA",
+        "Id": 1,
+        "Dni": 35895582
+    },
+    {
+        "Nombre": "Martina Sanchez",
+        "Contrasenia": "Msanchez",
+        "Edad": 22,
+        "Telefono": 223697411,
+        "Especialidad": "CLINICA",
+        "Id": 2,
+        "Dni": 40326291
+    },
+    {
+        "Nombre": "Martin Dominguez",
+        "Contrasenia": "Mdominguez",
+        "Edad": 29,
+        "Telefono": 22345612,
+        "Especialidad": "NEUROLOGIA",
+        "Id": 3,
+        "Dni": 38992191
+    },
+    {
+        "Nombre": "Laura Hernandez",
+        "Contrasenia": "Lhernandez",
+        "Edad": 50,
+        "Telefono": 2236785322,
+        "Especialidad": "CARDIOLOGIA",
+        "Id": 4,
+        "Dni": 37561231
+    },
+    {
+        "Nombre": "Estefania Gutierrez",
+        "Contrasenia": "Egutierrez",
+        "Edad": 41,
+        "Telefono": 2234786192,
+        "Especialidad": "PEDIATRIA",
+        "Id": 5,
+        "Dni": 38231555
+    },
+    {
+        "Nombre": "Mateo Pereira",
+        "Contrasenia": "Mpereira",
+        "Edad": 66,
+        "Telefono": 223734241,
+        "Especialidad": "CLINICA",
+        "Id": 6,
+        "Dni": 35312111
+    },
+    {
+        "Nombre": "Hernan De La Fuente",
+        "Contrasenia": "Hfuente",
+        "Edad": 72,
+        "Telefono": 2237844921,
+        "Especialidad": "NEUROLOGIA",
+        "Id": 7,
+        "Dni": 33251888
+    },
+    {
+        "Nombre": "Candela Alvarez",
+        "Contrasenia": "Calvarez",
+        "Edad": 25,
+        "Telefono": 2237821451,
+        "Dni": 41734222
+    },
+    {
+        "Nombre": "Jorge Campos",
+        "Contrasenia": "Jcampos",
+        "Edad": 51,
+        "Telefono": 223563412,
+        "Dni": 35234111
+    },
+    {
+        "Nombre": "Miranda Sanchez",
+        "Contrasenia": "Msanchez",
+        "Edad": 28,
+        "Telefono": 2235671121,
+        "Dni": 40231556
+    }
+]

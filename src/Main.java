@@ -19,11 +19,12 @@ public class Main {
     public static void main (String [] args) throws JSONException {
 
         List<Medico> medicos = new ArrayList<>();
-        List<Paciente> pacientes = new ArrayList<>();
         medicos = LeerArchivoPersonas.llenarlistamedicos();
+        List<Paciente> pacientes = new ArrayList<>();
+
         pacientes = LeerArchivoPersonas.llenarlistaPacientes();
 
-      /*  Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         //Agenda agenda = new Agenda();
         System.out.printf("\nanipo: ");
         int anio = scan.nextInt();
@@ -48,7 +49,7 @@ public class Main {
         scan.nextLine();
         Medico medico = ListaMedicos.buscarMedicoPorId(id,medicos);
         System.out.printf("\ningrese su dni: ");
-        long dni = scan.nextLong();
+        String dni = scan.nextLine();
         scan.nextLine();
         Paciente paciente = Paciente.buscarPacientePorDNI(dni,pacientes);
         System.out.printf("\n motivo:");
@@ -58,9 +59,10 @@ public class Main {
         agenda.getAgenda().add(turno);
 
         GrabarJSONAgenda.llenarAgenda(agenda);
-        */
 
-        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        GrabarJSONPersonas.llenarPersonas();
+
+        agenda = LeerArchivoAgenda.LeerArchivo();
         agenda.mostrarAgenda(agenda);
 
     }

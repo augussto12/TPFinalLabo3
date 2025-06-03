@@ -1,27 +1,30 @@
 package clasesPersonas;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Paciente extends  Persona{
-    //String contrasenia;
-    public Paciente(String nombreYapellido, long telefono, long dni, int edad) {
-        super(nombreYapellido, telefono, dni, edad);
+
+    public Paciente(String nombreYapellido, int edad, String dni, long telefono, String contrasenia) {
+        super(nombreYapellido, edad, dni, telefono, contrasenia);
     }
 
     /*public String getContrasenia() {
-        return contrasenia;
-    }
+            return contrasenia;
+        }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }*/
-    public static Paciente buscarPacientePorDNI(long dni, List<Paciente> pacientes){
+        public void setContrasenia(String contrasenia) {
+            this.contrasenia = contrasenia;
+        }*/
+    public static Paciente buscarPacientePorDNI(String dni, List<Paciente> pacientes){
         Paciente paciente = null;
         for (Paciente p : pacientes){
-            if (p.getDni() == dni){
+            if (Objects.equals(p.getDni(), dni)){
                 paciente = p;
             }
         }
         return paciente;
     }
+
+
 }

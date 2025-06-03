@@ -3,14 +3,16 @@ package clasesPersonas;
 public abstract class Persona {
     private String nombreYapellido;
     private int edad ;
-    private long dni ;
+    private String dni ;
     private long telefono ;
+    private String contrasenia;
 
-    public Persona(String nombreYapellido, long telefono, long dni, int edad) {
+    public Persona(String nombreYapellido, int edad, String dni, long telefono, String contrasenia) {
         this.nombreYapellido = nombreYapellido;
-        this.telefono = telefono;
-        this.dni = dni;
         this.edad = edad;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.contrasenia = contrasenia;
     }
 
     public String getNombreYapellido() {
@@ -29,11 +31,11 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    public long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -44,4 +46,8 @@ public abstract class Persona {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+
+    public String getContrasenia() {return contrasenia; }
+
+    public void setContrasenia(String contrasenia) {this.contrasenia = contrasenia; }
 }

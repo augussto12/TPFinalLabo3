@@ -42,10 +42,10 @@ public class Agenda {
         System.out.printf("\nTurno programado exitosamente.\n");
         // grabar con json
     }*/
-    public void cancelarTurno(LocalDateTime fecha, long dniPaciente, boolean esAdmin, long dniUsuarioActual) {
+    public void cancelarTurno(LocalDateTime fecha, long dniPaciente, boolean esAdmin, String dniUsuarioActual) {
         Turno turnoEncontrado = null;
         for (Turno t : agenda) {
-            if (!esAdmin && t.getFecha().equals(fecha) && t.getCliente().getDni() == dniPaciente) {
+            if (!esAdmin && t.getFecha().equals(fecha) && t.getCliente().getDni().equals(dniPaciente)) {
                 turnoEncontrado = t;
                 break;
             }
@@ -56,7 +56,7 @@ public class Agenda {
             return;
         }
 
-        if (!esAdmin && turnoEncontrado.getCliente().getDni() != dniUsuarioActual) {
+        if (!esAdmin && !turnoEncontrado.getCliente().getDni().equals(dniUsuarioActual)) {
             System.out.printf("\nSolo puedes cancelar tus propios turnos.\n");
             return;
         }
@@ -70,11 +70,11 @@ public class Agenda {
         //leer json
     }
 
-    public void listarTurnosPorPaciente(long dniPaciente) {
+    public void listarTurnosPorPaciente(String dniPaciente) {
         boolean hayTurnos = false;
-        System.out.printf("\nTurnos del paciente con DNI %d:\n", dniPaciente);
+        System.out.printf("\nTurnos del paciente con DNI: "+dniPaciente+ "\n");
         for (Turno t : agenda) {
-            if (t.getCliente().getDni() == dniPaciente) {
+            if (t.getCliente().getDni().equals(dniPaciente)) {
                 //leer lista turnos de json
                 hayTurnos = true;
             }

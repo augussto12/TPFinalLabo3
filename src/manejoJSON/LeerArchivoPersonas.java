@@ -25,16 +25,17 @@ public class LeerArchivoPersonas {
                 int id = 0;
                 if(personajson.has("id")){
 
-                    id = personajson.getInt("id");
-                    long telefono = personajson.getLong("telefono");
-                    String nombre = personajson.getString("nombre");
-                    int edad = personajson.getInt("edad");
-                    long dni = personajson.getLong("dni");
-                    String especialidadjson = personajson.getString("especialidad");
+                    id = personajson.getInt("Id");
+                    long telefono = personajson.getLong("Telefono");
+                    String nombre = personajson.getString("Nombre");
+                    int edad = personajson.getInt("Edad");
+                    String dni = personajson.getString("Dni");
+                    String contrasenia = personajson.getString("Contrasenia");
+                    String especialidadjson = personajson.getString("Especialidad");
 
                     Especialidades especialidad = Especialidades.valueOf(especialidadjson);
 
-                    Medico m = new Medico(nombre, telefono, dni, edad,especialidad, id);
+                    Medico m = new Medico(nombre,edad,dni,telefono,contrasenia,especialidad,id);
                     medicos.add(m);
                 }
 
@@ -57,13 +58,13 @@ public class LeerArchivoPersonas {
                int id = 0;
                 if (!personajson.has("id")) {
 
-                    long telefono = personajson.getLong("telefono");
-                    String nombre = personajson.getString("nombre");
-                    int edad = personajson.getInt("edad");
-                    long dni = personajson.getLong("dni");
-                    //String contrasenia = personajson.getString("contrasenia");
+                    long telefono = personajson.getLong("Telefono");
+                    String nombre = personajson.getString("Nombre");
+                    int edad = personajson.getInt("Edad");
+                    String dni = personajson.getString("Dni");
+                    String contrasenia = personajson.getString("contrasenia");
 
-                    Paciente p = new Paciente(nombre, telefono, dni, edad);
+                    Paciente p = new Paciente(nombre,edad,dni,telefono,contrasenia);
                     pacientes.add(p);
                 }
                 listaPacientes = pacientes;
@@ -79,24 +80,24 @@ public class LeerArchivoPersonas {
         for (Medico p : medicos) {
             contador++;
             System.out.printf("\n------medico " + contador + "--------");
-            System.out.printf("\nnombre: " + p.getNombreYapellido());
-            System.out.printf("\nedad: " + p.getEdad());
-            System.out.printf("\ntelefono: " + p.getTelefono());
-            System.out.printf("\ndni: " + p.getNombreYapellido());
-            System.out.printf("\nespecialidad: "+p.getEspecialidad());
-            System.out.printf("\nid: "+p.getId());
+            System.out.printf("\nNombre: " + p.getNombreYapellido());
+            System.out.printf("\nEdad: " + p.getEdad());
+            System.out.printf("\nTelefono: " + p.getTelefono());
+            System.out.printf("\nDni: " + p.getNombreYapellido());
+            System.out.printf("\nEspecialidad: "+p.getEspecialidad());
+            System.out.printf("\nId: "+p.getId());
         }
     }
     public static void mostrarListaPacientes (List<Paciente> pacientes) {
         int contador = 0;
         for (Paciente p : pacientes) {
             contador++;
-            System.out.printf("\n------paciente " + contador + "--------");
-            System.out.printf("\nnombre: " + p.getNombreYapellido());
+            System.out.printf("\n------Paciente " + contador + "--------");
+            System.out.printf("\nNombre: " + p.getNombreYapellido());
            // System.out.printf("\ncontrasenia: " + p.getContrasenia());
-            System.out.printf("\nedad: " + p.getEdad());
-            System.out.printf("\ntelefono: " + p.getTelefono());
-            System.out.printf("\ndni: " + p.getNombreYapellido());
+            System.out.printf("\nEdad: " + p.getEdad());
+            System.out.printf("\nTelefono: " + p.getTelefono());
+            System.out.printf("\nDni: " + p.getNombreYapellido());
         }
     }
 

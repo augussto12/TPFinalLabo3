@@ -33,26 +33,28 @@ public class GrabarJSONAgenda {
     public static JSONObject llenarTurno (Turno turno) throws JSONException {
 
         JSONObject turnoJSON = new JSONObject();
-        turnoJSON.put("fecha", turno.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-        turnoJSON.put("motivo", turno.getMotivo());
+        turnoJSON.put("Fecha", turno.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        turnoJSON.put("Motivo", turno.getMotivo());
 
         Medico medico = turno.getMedico();
         JSONObject medicoJSON = new JSONObject();
-        medicoJSON.put("id", medico.getId());
-        medicoJSON.put("nombre", medico.getNombreYapellido());
-        medicoJSON.put("dni", medico.getDni());
-        medicoJSON.put("telefono", medico.getTelefono());
-        medicoJSON.put("edad", medico.getEdad());
-        medicoJSON.put("especialidad", medico.getEspecialidad().name());
-        turnoJSON.put("medico", medicoJSON);
+        medicoJSON.put("Id", medico.getId());
+        medicoJSON.put("Nombre", medico.getNombreYapellido());
+        medicoJSON.put("Dni", medico.getDni());
+        medicoJSON.put("Telefono", medico.getTelefono());
+        medicoJSON.put("Edad", medico.getEdad());
+        medicoJSON.put("Especialidad", medico.getEspecialidad().name());
+        medicoJSON.put("Contrasenia",medico.getContrasenia());
+        turnoJSON.put("Medico", medicoJSON);
 
         Paciente paciente = turno.getCliente();
         JSONObject pacienteJSON = new JSONObject();
-        pacienteJSON.put("nombre", paciente.getNombreYapellido());
-        pacienteJSON.put("dni", paciente.getDni());
-        pacienteJSON.put("telefono", paciente.getTelefono());
-        pacienteJSON.put("edad", paciente.getEdad());
-        turnoJSON.put("paciente", pacienteJSON);
+        pacienteJSON.put("Nombre", paciente.getNombreYapellido());
+        pacienteJSON.put("Dni", paciente.getDni());
+        pacienteJSON.put("Telefono", paciente.getTelefono());
+        pacienteJSON.put("Edad", paciente.getEdad());
+        pacienteJSON.put("Contrasenia",paciente.getContrasenia());
+        turnoJSON.put("Paciente", pacienteJSON);
 
         return  turnoJSON;
     }
