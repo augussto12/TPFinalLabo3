@@ -18,78 +18,6 @@ public class Agenda {
     private List<Turno> agenda;
     private String nombre;
 
-    /*public void programarTurno(LocalDateTime fecha, int idMedico, Paciente paciente, String motivo, boolean esAdmin, long dniUsuarioActual) {
-        if (fecha.isBefore(LocalDateTime.now())) {
-            System.out.printf("\nNo se pueden programar turnos en el pasado.\n");
-            return;
-        }
-
-        Medico medico = listaMedicos.buscarMedicoPorId(idMedico,listaMedicos);
-        if (medico == null) {
-            System.out.printf("\nMédico con ID %d no encontrado.\n", idMedico);
-            return;
-        }
-
-        for (Turno t : agenda) {
-            if (t.getMedico().getId() == idMedico && t.getFecha().equals(fecha)) {
-                System.out.printf("\nEl médico ya tiene un turno en esa fecha.\n");
-                return;
-            }
-        }
-
-        if (paciente.getDni() != dniUsuarioActual) {
-            System.out.printf("\nSolo puedes programar turnos para ti mismo.\n");
-            return;
-        }
-
-        Turno turno = new Turno(fecha, medico, paciente, motivo);
-        agenda.add(turno);
-        System.out.printf("\nTurno programado exitosamente.\n");
-        // grabar con json
-    }*/
-    public void cancelarTurno(LocalDateTime fecha, long dniPaciente, boolean esAdmin, String dniUsuarioActual) {
-        Turno turnoEncontrado = null;
-        for (Turno t : agenda) {
-            if (!esAdmin && t.getFecha().equals(fecha) && t.getCliente().getDni().equals(dniPaciente)) {
-                turnoEncontrado = t;
-                break;
-            }
-        }
-
-        if (turnoEncontrado == null) {
-            System.out.printf("\nTurno no encontrado.\n");
-            return;
-        }
-
-        if (!esAdmin && !turnoEncontrado.getCliente().getDni().equals(dniUsuarioActual)) {
-            System.out.printf("\nSolo puedes cancelar tus propios turnos.\n");
-            return;
-        }
-
-        agenda.remove(turnoEncontrado);
-        System.out.printf("\nTurno cancelado exitosamente.\n");
-        // grabar con json
-    }
-
-    public void verTurnos() {
-        //leer json
-    }
-
-    public void listarTurnosPorPaciente(String dniPaciente) {
-        boolean hayTurnos = false;
-        System.out.printf("\nTurnos del paciente con DNI: " + dniPaciente + "\n");
-        for (Turno t : agenda) {
-            if (t.getCliente().getDni().equals(dniPaciente)) {
-                //leer lista turnos de json
-                hayTurnos = true;
-            }
-        }
-        if (!hayTurnos) {
-            System.out.printf("\nNo hay turnos para este paciente.\n");
-        }
-    }
-
-
     public Agenda() {
         agenda = new ArrayList<Turno>();
     }
@@ -107,24 +35,11 @@ public class Agenda {
         this.agenda = agenda;
     }
 
-    public void mostrarAgenda(Agenda agenda) {
-        System.out.printf(agenda.nombre);
-        mostrarTurnos(agenda.getAgenda());
-    }
-
-    public void mostrarTurnos(List<Turno> turnos) {
-        int contador = 0;
-        for (Turno t : turnos) {
-            contador++;
-            System.out.println("\n------turno " + contador + "-----");
-            mostrarUnTurno(t);
-        }
-    }
-
     public static void mostrarUnTurno(Turno t) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         System.out.printf("Fecha: %s%n", t.getFecha().format(formatter));
         System.out.printf("motivo: " + t.getMotivo());
+        System.out.printf("\nid de turno: " + t.getIdTurno());
         System.out.printf("\nPaciente: ");
         System.out.printf("\n - Nombre: " + t.getCliente().getNombreYapellido());
         System.out.printf("\n - Edad: " + t.getCliente().getEdad());
@@ -137,11 +52,14 @@ public class Agenda {
         System.out.printf("\n - Edad: " + t.getMedico().getEdad());
         System.out.printf("\n - Dni: " + t.getMedico().getDni());
         System.out.printf("\n - Telefono: " + t.getMedico().getTelefono());
+        System.out.printf("\n");
     }
 
     public static Turno sacarTurno(Paciente paciente) throws JSONException {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        int contador = agenda.getAgenda().size() + 1;
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Fecha para cuando quiere sacar turno");
@@ -170,9 +88,11 @@ public class Agenda {
         Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
-        Turno turno = new Turno(fecha, medico, paciente, motivo);
+        Turno turno = new Turno(fecha, medico, paciente, motivo,contador);
         return turno;
     }
+
+
 
     public static Paciente encontrarPaciente(String dni, List<Paciente> pacientes) {
         Paciente pacienteEncontrado = null;
@@ -188,7 +108,7 @@ public class Agenda {
         int contador = 1;
         for (Turno t : listaTurnos) {
             if (t.getCliente().getDni().equals(paciente.getDni())) {
-                System.out.println("---Turno " + contador + "---");
+                System.out.println("\n---------------Turno " + contador + "---------------");
                 mostrarUnTurno(t);
                 contador++;
             }
@@ -202,4 +122,16 @@ public class Agenda {
         Paciente pacienteEncontrado = Agenda.encontrarPaciente(paciente.getDni(), pacientes);
         Agenda.mostrarTurnosPropios(pacienteEncontrado, listadoTurnos);
     }
+
+    public static void eliminarUnTurnoMio(int idAeliminar, Agenda agenda) throws JSONException {
+        agenda = LeerArchivoAgenda.LeerArchivo();
+        for (Turno t : agenda.getAgenda()) {
+            if (idAeliminar == t.getIdTurno()) {
+                agenda.getAgenda().remove(t);
+                System.out.printf("\nSe elimino con exito");
+            }
+        }
+        GrabarJSONAgenda.llenarAgenda(agenda);
+    }
+
 }

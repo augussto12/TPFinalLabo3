@@ -40,6 +40,7 @@ public class GrabarJSONAgenda {
         JSONObject turnoJSON = new JSONObject();
         turnoJSON.put("fecha", turno.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
         turnoJSON.put("motivo", turno.getMotivo());
+        turnoJSON.put("idTurno", turno.getIdTurno());
 
         Medico medico = turno.getMedico();
         JSONObject medicoJSON = new JSONObject();

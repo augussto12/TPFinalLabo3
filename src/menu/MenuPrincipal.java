@@ -34,18 +34,23 @@ public class MenuPrincipal {
                 //menuAdmin();
                 break;
             case 2:
-                System.out.println("Ingrese su usuario(DNI): ");
+                System.out.printf("\ningrese su DNI: ");
                 String dniUsuario = scan.nextLine();
 
 
                 Paciente paciente = Paciente.buscarPacientePorDNI(dniUsuario, pacientes);
                 if (paciente == null) {
                     System.out.println("Paciente no encontrado.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
+                    menu();
                 }
-                System.out.println("Ingrese su contrasenia: ");
+                System.out.printf("\nIngrese su contrasenia: ");
                 String contrasenia = scan.nextLine();
                 if (!paciente.getContrasenia().equals(contrasenia)) {
                     System.out.println("Contrasenia incorrecta.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
                     menu();
                 }
                 //chequeo si existe ese user y si la contra es correcta con nombre y dni
@@ -77,6 +82,7 @@ public class MenuPrincipal {
         System.out.println("[ 4 ] Ver mis turnos");
         //System.out.println("[ 5 ] Modificar mi turno");
         System.out.println("[ 0 ] Volver al menú principal");
+        System.out.printf("\nSu eleccion: ");
         opcion = scan.nextInt();
         scan.nextLine();
 
@@ -100,6 +106,12 @@ public class MenuPrincipal {
                 }
                 break;
             case 3:
+                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                System.out.println("Id del turno que desea eliminar: ");
+                int idAeliminar = scan.nextInt();
+                Agenda.eliminarUnTurnoMio(idAeliminar,agenda);
+                System.out.printf("\nTurnos actualizados: ");
+                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
                 break;
             case 4:
                 Agenda.mostrarTodosMisTurnos(paciente,pacientes);
@@ -109,10 +121,10 @@ public class MenuPrincipal {
                 break;
             case 5:
                 break;
+            case 0:
+                menu();
+                break;
         }
-
-        //eliminar SU turno
-        //modificar SU turno
 
     }
 
