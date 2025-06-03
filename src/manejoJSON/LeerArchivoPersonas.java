@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class LeerArchivoPersonas {
 
@@ -23,7 +24,7 @@ public class LeerArchivoPersonas {
 
                 JSONObject personajson = archivo.getJSONObject(i);
                 int id = 0;
-                if(personajson.has("id")){
+                if (personajson.has("id")) {
 
                     id = personajson.getInt("id");
                     long telefono = personajson.getLong("telefono");
@@ -35,7 +36,7 @@ public class LeerArchivoPersonas {
 
                     Especialidades especialidad = Especialidades.valueOf(especialidadjson);
 
-                    Medico m = new Medico(nombre,edad,dni,telefono,contrasenia,especialidad,id);
+                    Medico m = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, id);
                     medicos.add(m);
                 }
 
@@ -47,7 +48,8 @@ public class LeerArchivoPersonas {
         }
         return listaMedicos;
     }
-    public static List<Paciente> llenarlistaPacientes () {
+
+    public static List<Paciente> llenarlistaPacientes() {
         List<Paciente> listaPacientes = new ArrayList<>();
         try {
             JSONArray archivo = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
@@ -55,7 +57,7 @@ public class LeerArchivoPersonas {
 
             for (int i = 0; i < archivo.length(); i++) {
                 JSONObject personajson = archivo.getJSONObject(i);
-               int id = 0;
+                int id = 0;
                 if (!personajson.has("id")) {
 
                     long telefono = personajson.getLong("telefono");
@@ -64,7 +66,7 @@ public class LeerArchivoPersonas {
                     String dni = personajson.getString("dni");
                     String contrasenia = personajson.getString("contrasenia");
 
-                    Paciente p = new Paciente(nombre,edad,dni,telefono,contrasenia);
+                    Paciente p = new Paciente(nombre, edad, dni, telefono, contrasenia);
                     pacientes.add(p);
                 }
                 listaPacientes = pacientes;
@@ -75,26 +77,101 @@ public class LeerArchivoPersonas {
         return listaPacientes;
     }
 
-    public static void mostrarListaMedicos (List<Medico> medicos) {
+    public static void mostrarListaMedicos(List<Medico> medicos) {
         int contador = 0;
-        for (Medico p : medicos) {
-            contador++;
-            System.out.printf("\n------medico " + contador + "--------");
-            System.out.printf("\nNombre: " + p.getNombreYapellido());
-            System.out.printf("\nEdad: " + p.getEdad());
-            System.out.printf("\nTelefono: " + p.getTelefono());
-            //System.out.printf("\nDni: " + p.getNombreYapellido());
-            System.out.printf("\nEspecialidad: "+p.getEspecialidad());
-            System.out.printf("\nId: "+p.getId());
+        Scanner scan = new Scanner(System.in);
+        int opcion = 0;
+        System.out.println("[ 1 ] Ver medicos por especialidad");
+        System.out.println("[ 2 ] Ver todos los medicos");
+        System.out.printf("\nSu eleccion: ");
+        opcion = scan.nextInt();
+        scan.nextLine();
+        switch (opcion) {
+            case 1:
+                mostrarPorEspecialidad(medicos);
+                break;
+            case 2:
+                mostrarTodosLosMedicos(medicos);
+                break;
+        }
+
+    }
+
+    public static void mostrarPorEspecialidad(List<Medico> medicos) {
+        Scanner scan = new Scanner(System.in);
+        int contador = 0;
+        Especialidades especialidad = null;
+        System.out.println("[ 1 ] Cardiologos");
+        System.out.println("[ 2 ] Pediatras");
+        System.out.println("[ 3 ] Clinicos");
+        System.out.println("[ 4 ] Neurologos");
+
+        boolean opcionValida = false;
+        while (!opcionValida) {
+            System.out.printf("\nSu eleccion: ");
+            int opcion = scan.nextInt();
+            scan.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    especialidad = Especialidades.CARDIOLOGIA;
+                    opcionValida = true;
+                    break;
+                case 2:
+                    especialidad = Especialidades.PEDIATRIA;
+                    opcionValida = true;
+                    break;
+                case 3:
+                    especialidad = Especialidades.CLINICA;
+                    opcionValida = true;
+                    break;
+                case 4:
+                    especialidad = Especialidades.NEUROLOGIA;
+                    opcionValida = true;
+                    break;
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        }
+
+
+        for (Medico medico : medicos) {
+            if (medico.getEspecialidad() == especialidad) {
+                contador++;
+                mostrarUnMedico(medico, contador);
+            }
         }
     }
-    public static void mostrarListaPacientes (List<Paciente> pacientes) {
+
+    public static void mostrarTodosLosMedicos(List<Medico> medicos) {
         int contador = 0;
+
+        for (Medico m : medicos) {
+            contador++;
+            mostrarUnMedico(m, contador);
+        }
+    }
+
+
+    public static void mostrarUnMedico(Medico medico, int contador) {
+        System.out.printf("\n------medico " + contador + "--------");
+        System.out.printf("\nNombre: " + medico.getNombreYapellido());
+        System.out.printf("\nEdad: " + medico.getEdad());
+        System.out.printf("\nTelefono: " + medico.getTelefono());
+        //System.out.printf("\nDni: " + medico.getNombreYapellido());
+        System.out.printf("\nEspecialidad: " + medico.getEspecialidad());
+        System.out.printf("\nId: " + medico.getId());
+    }
+
+
+    public static void mostrarListaPacientes(List<Paciente> pacientes) {
+        int contador = 0;
+
         for (Paciente p : pacientes) {
             contador++;
             System.out.printf("\n------Paciente " + contador + "--------");
             System.out.printf("\nNombre: " + p.getNombreYapellido());
-           // System.out.printf("\ncontrasenia: " + p.getContrasenia());
+            // System.out.printf("\ncontrasenia: " + p.getContrasenia());
             System.out.printf("\nEdad: " + p.getEdad());
             System.out.printf("\nTelefono: " + p.getTelefono());
             System.out.printf("\nDni: " + p.getNombreYapellido());

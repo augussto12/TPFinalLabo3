@@ -33,14 +33,14 @@ public class LeerArchivoAgenda {
             int idTurno = turnojson.getInt("idTurno");
 
             JSONObject pacientejson = turnojson.getJSONObject("paciente");
-            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"),pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
+            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"), pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
 
             JSONObject medicoJSON = turnojson.getJSONObject("medico");
             String especialidadjson = medicoJSON.getString("especialidad");
             Especialidades especialidad = Especialidades.valueOf(especialidadjson);
-            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"),medicoJSON.getString("dni"), medicoJSON.getLong("telefono"),medicoJSON.getString("contrasenia") ,especialidad, medicoJSON.getInt("id"));
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
 
-            Turno turno = new Turno(fecha, medico, paciente, motivo,idTurno);
+            Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
             turnos.add(turno);
 
         }
@@ -50,19 +50,15 @@ public class LeerArchivoAgenda {
         return agenda;
     }
 
-    public static void mostrarTurnosDeUnMedico(List<Turno> turnos,String medico)
-    {
-        for (Turno a:turnos)
-        {
-            if(a.getMedico().getNombreYapellido().equalsIgnoreCase(medico))
-            {
+    public static void mostrarTurnosDeUnMedico(List<Turno> turnos, String medico) {
+        for (Turno a : turnos) {
+            if (a.getMedico().getNombreYapellido().equalsIgnoreCase(medico)) {
                 Agenda.mostrarUnTurno(a);
             }
         }
     }
 
-    public static List<Turno> reprogramarTurno(List<Turno> turnos,int idAreprogramar)
-    {
+    public static List<Turno> reprogramarTurno(List<Turno> turnos, int idAreprogramar) {
         Iterator<Turno> iterator = turnos.iterator();
         while (iterator.hasNext()) {
             Turno t = iterator.next();
@@ -72,26 +68,20 @@ public class LeerArchivoAgenda {
                 Scanner scan = new Scanner(System.in);
                 int eleccion = 0;
                 System.out.println("\n======TURNOS========");
-                System.out.println("[ 1 ] Modificar motivos");
-                System.out.println("[ 2 ] Modificar fecha");
+                System.out.println("[ 1 ] Modificar fecha");
                 System.out.println("[ 0 ] Volver al menú principal");
                 System.out.printf("\nSu eleccion: ");
                 eleccion = scan.nextInt();
                 scan.nextLine();
-                switch (eleccion){
-            case 1:
-                System.out.println("Ingrese el motivo a cambiar: ");
-                String motivo=scan.nextLine();
-                t.setMotivo(motivo);
-                break;
-            case 2:
-                System.out.println("Ingrese la fecha actualizada");
-                LocalDateTime fecha=Turno.llenarFecha();
-                t.setFecha(fecha);
-                break;
-            case 0:
-                //
-                break;
+                switch (eleccion) {
+                    case 1:
+                        System.out.println("Ingrese la fecha actualizada");
+                        LocalDateTime fecha = Turno.llenarFecha();
+                        t.setFecha(fecha);
+                        break;
+                    case 0:
+                        //
+                        break;
 
                 }
             }

@@ -1,20 +1,23 @@
 package manejoJSON;
 
+import Exceptions.PacienteInvalidoException;
+import clasesPersonas.Paciente;
 import extras.Especialidades;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class GrabarJSONPersonas {
 
-    public static void llenarPersonas () throws JSONException {
+    public static void llenarPersonas() throws JSONException {
 
         JSONArray archivo = new JSONArray();
         Scanner scan = new Scanner(System.in);
 
-        for (int i = 0; i<8;i++){
+        for (int i = 0; i < 8; i++) {
             JSONObject personaJSON = new JSONObject();
             System.out.printf("\nNombre:");
             String nombre = scan.nextLine();
@@ -36,34 +39,35 @@ public class GrabarJSONPersonas {
             System.out.printf("\nsu eleccion:");
             int eleccion = scan.nextInt();
             scan.nextLine();
-            switch (eleccion){
+            switch (eleccion) {
                 case 1:
                     especialidad = Especialidades.CARDIOLOGIA;
                     break;
                 case 2:
                     especialidad = Especialidades.PEDIATRIA;
-                    break; 
+                    break;
                 case 3:
                     especialidad = Especialidades.CLINICA;
                     break;
                 case 4:
-                    especialidad = Especialidades.NEUROLOGIA;                    
+                    especialidad = Especialidades.NEUROLOGIA;
                     break;
+
 
             }
 
             personaJSON.put("nombre", nombre);
-            personaJSON.put("dni",dni);
-            personaJSON.put("telefono",telefono);
+            personaJSON.put("dni", dni);
+            personaJSON.put("telefono", telefono);
             personaJSON.put("edad", edad);
-            personaJSON.put("id", i+1);
+            personaJSON.put("id", i + 1);
             personaJSON.put("especialidad", especialidad);
-            personaJSON.put("contrasenia",contrasenia);
+            personaJSON.put("contrasenia", contrasenia);
 
             archivo.put(personaJSON);
             System.out.printf("\nSe agrego");
         }
-        for (int j = 0; j<3;j++){
+        for (int j = 0; j < 3; j++) {
 
             JSONObject personaJSON1 = new JSONObject();
             System.out.printf("\nNombre:");
@@ -75,24 +79,66 @@ public class GrabarJSONPersonas {
             System.out.printf("\nTel:");
             long telefono1 = scan.nextLong();
             scan.nextLine();
-            System.out.printf("\nEdasd:");
+            System.out.printf("\nEdad:");
             int edad1 = scan.nextInt();
             scan.nextLine();
 
 
-
             personaJSON1.put("nombre", nombre1);
             personaJSON1.put("contrasenia", contrasenia);
-            personaJSON1.put("dni",dni1);
-            personaJSON1.put("telefono",telefono1);
+            personaJSON1.put("dni", dni1);
+            personaJSON1.put("telefono", telefono1);
             personaJSON1.put("edad", edad1);
 
             archivo.put(personaJSON1);
 
         }
-        JSONUtiles.grabar(archivo,"hospitalPersonas.json");
+        JSONUtiles.grabar(archivo, "hospitalPersonas.json");
 
     }
 
 
+    public static List<Paciente> agregarUnPaciente(Paciente nuevoPaciente) throws JSONException {
+        if (nuevoPaciente == null) {
+            throw new PacienteInvalidoException("El paciente no puede ser nulo");
+        }
+        List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
+        pacientes.add(nuevoPaciente);
+        return pacientes;
+    }
+
+    public static void agregarPacienteAlJSON(Paciente paciente) {
+        JSONObject personaJSON = new JSONObject();
+
+        try {
+            personaJSON.put("nombre", paciente.getNombreYapellido());
+            personaJSON.put("contrasenia", paciente.getContrasenia());
+            personaJSON.put("dni", paciente.getDni());
+            personaJSON.put("telefono", paciente.getTelefono());
+            personaJSON.put("edad", paciente.getEdad());
+
+            JSONArray listadoPersonas = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
+            listadoPersonas.put(personaJSON);
+
+            JSONUtiles.grabar(listadoPersonas, "hospitalPersonas.json");
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Paciente> registrarUsuario(List<Paciente> pacientes) throws JSONException {
+        Paciente paciente = Paciente.pedirDatosDeRegistroAlUsuario(pacientes);
+        pacientes = agregarUnPaciente(paciente);
+        agregarPacienteAlJSON(paciente);
+        return pacientes;
+    }
+
+
 }
+
+
+
+
+
+

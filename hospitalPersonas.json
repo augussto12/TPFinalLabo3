@@ -1,95 +1,109 @@
 [
     {
-        "nombre": "Pedro Aguero",
         "contrasenia": "Paguero",
-        "edad": 23,
-        "telefono": 223567121,
-        "especialidad": "CARDIOLOGIA",
         "id": 1,
+        "telefono": 223567121,
+        "nombre": "Pedro Aguero",
+        "edad": 23,
+        "especialidad": "CARDIOLOGIA",
         "dni": "39.567.212"
     },
     {
-        "nombre": "Lisandro Lopez",
         "contrasenia": "Llopez",
-        "edad": 38,
-        "telefono": 223671121,
-        "especialidad": "PEDIATRIA",
         "id": 2,
+        "telefono": 223671121,
+        "nombre": "Lisandro Lopez",
+        "edad": 38,
+        "especialidad": "PEDIATRIA",
         "dni": "35.235.712"
     },
     {
-        "nombre": "Martina Sanchez",
         "contrasenia": "Msanchez",
-        "edad": 28,
-        "telefono": 223671212,
-        "especialidad": "CLINICA",
         "id": 3,
+        "telefono": 223671212,
+        "nombre": "Martina Sanchez",
+        "edad": 28,
+        "especialidad": "CLINICA",
         "dni": "40.299.981"
     },
     {
-        "nombre": "Martin Dominguez",
         "contrasenia": "Mdominguez",
-        "edad": 27,
-        "telefono": 2236983121,
-        "especialidad": "NEUROLOGIA",
         "id": 4,
+        "telefono": 2236983121,
+        "nombre": "Martin Dominguez",
+        "edad": 27,
+        "especialidad": "NEUROLOGIA",
         "dni": "41.577.721"
     },
     {
-        "nombre": "Laura Hernandez",
         "contrasenia": "Lhernandez",
-        "edad": 34,
-        "telefono": 2235789312,
-        "especialidad": "CARDIOLOGIA",
         "id": 5,
+        "telefono": 2235789312,
+        "nombre": "Laura Hernandez",
+        "edad": 34,
+        "especialidad": "CARDIOLOGIA",
         "dni": "38.231.666"
     },
     {
-        "nombre": "Estefania Gutierrez",
         "contrasenia": "Egutierrez",
-        "edad": 51,
-        "telefono": 2235781231,
-        "especialidad": "PEDIATRIA",
         "id": 6,
+        "telefono": 2235781231,
+        "nombre": "Estefania Gutierrez",
+        "edad": 51,
+        "especialidad": "PEDIATRIA",
         "dni": "32.555.121"
     },
     {
-        "nombre": "Mateo Pereira",
         "contrasenia": "Mpereira",
-        "edad": 50,
-        "telefono": 2235982341,
-        "especialidad": "CLINICA",
         "id": 7,
+        "telefono": 2235982341,
+        "nombre": "Mateo Pereira",
+        "edad": 50,
+        "especialidad": "CLINICA",
         "dni": "28.566.129"
     },
     {
-        "nombre": "Hernan de la Fuente",
         "contrasenia": "Hfuente",
-        "edad": 61,
-        "telefono": 2234893111,
-        "especialidad": "NEUROLOGIA",
         "id": 8,
+        "telefono": 2234893111,
+        "nombre": "Hernan de la Fuente",
+        "edad": 61,
+        "especialidad": "NEUROLOGIA",
         "dni": "19.561.222"
     },
     {
-        "nombre": "Candela Alvarez",
         "contrasenia": "Calvarez",
-        "edad": 28,
         "telefono": 2238955213,
+        "nombre": "Candela Alvarez",
+        "edad": 28,
         "dni": "40.561.999"
     },
     {
-        "nombre": "Jorge Campos",
         "contrasenia": "Jcampos",
-        "edad": 58,
         "telefono": 2236839134,
+        "nombre": "Jorge Campos",
+        "edad": 58,
         "dni": "22.356.188"
     },
     {
-        "nombre": "Miranda Sanchez",
         "contrasenia": "Msanchez",
-        "edad": 41,
         "telefono": 2236819341,
+        "nombre": "Miranda Sanchez",
+        "edad": 41,
         "dni": "33.561.992"
+    },
+    {
+        "contrasenia": "Mhernandez",
+        "telefono": 2236133985,
+        "nombre": "Miguel Hernandez",
+        "edad": 39,
+        "dni": "41.854.096"
+    },
+    {
+        "contrasenia": "Mpalermo",
+        "telefono": 223855934,
+        "nombre": "Martin Palermo",
+        "edad": 27,
+        "dni": "40.228.121"
     }
 ]

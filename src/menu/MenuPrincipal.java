@@ -6,6 +6,7 @@ import clasesPersonas.ListaMedicos;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
 import manejoJSON.GrabarJSONAgenda;
+import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoAgenda;
 import manejoJSON.LeerArchivoPersonas;
 import org.json.JSONException;
@@ -21,7 +22,7 @@ public class MenuPrincipal {
         Scanner scan = new Scanner(System.in);
         int eleccion = 0;
         System.out.printf("\n======HOSPITAL========");
-        System.out.printf("\n[ 1 ] Si es administrador.");
+        System.out.printf("\n[ 1 ] Si es medico.");
         System.out.printf("\n[ 2 ] Si es un paciente.");
         System.out.printf("\n[ 3 ] Para registrarse como paciente.");
         System.out.printf("\n[ 0 ] Si desea terminar el programa");
@@ -79,7 +80,10 @@ public class MenuPrincipal {
                 menuUser(paciente);
                 break;
             case 3:
-
+                pacientes = GrabarJSONPersonas.registrarUsuario(pacientes);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menu();
                 break;
         }
 

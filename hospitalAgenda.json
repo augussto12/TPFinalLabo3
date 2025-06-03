@@ -61,5 +61,26 @@
             "dni": "40.299.981"
         },
         "idTurno": 653
+    },
+    {
+        "fecha": "19/07/2025 10:00",
+        "motivo": "Dolores estomacales",
+        "paciente": {
+            "contrasenia": "Mpalermo",
+            "telefono": 223855934,
+            "nombre": "Martin Palermo",
+            "edad": 27,
+            "dni": "40.228.121"
+        },
+        "medico": {
+            "contrasenia": "Mpereira",
+            "id": 7,
+            "telefono": 2235982341,
+            "nombre": "Mateo Pereira",
+            "edad": 50,
+            "especialidad": "CLINICA",
+            "dni": "28.566.129"
+        },
+        "idTurno": 468
     }
 ]}

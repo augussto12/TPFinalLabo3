@@ -74,13 +74,13 @@ public class Agenda {
             }
         } while (idRepetido);
         Scanner scan = new Scanner(System.in);
-        LocalDateTime fecha = Turno.llenarFecha();
-        System.out.printf("\nMEDICOS DISPONIBLES:");
+        System.out.printf("\nMEDICOS DISPONIBLES:\n");
         LeerArchivoPersonas.mostrarListaMedicos(medicos);
-        System.out.printf("\nId medico:");
+        System.out.printf("\nIngrese el Id del medico que quiere:");
         int id = scan.nextInt();
         scan.nextLine();
         Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
+        LocalDateTime fecha = Turno.llenarFecha();
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
         Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
