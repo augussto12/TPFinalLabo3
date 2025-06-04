@@ -72,38 +72,24 @@
         "dni": "19.561.222"
     },
     {
-        "contrasenia": "Calvarez",
-        "telefono": 2238955213,
-        "nombre": "Candela Alvarez",
-        "edad": 28,
-        "dni": "40.561.999"
+        "contrasenia": "test",
+        "nombre": "admin",
+        "dni": "45.922.938"
     },
     {
-        "contrasenia": "Jcampos",
-        "telefono": 2236839134,
-        "nombre": "Jorge Campos",
-        "edad": 58,
-        "dni": "22.356.188"
+        "contrasenia": "Ldominguez",
+        "id": 570,
+        "telefono": 2234569876,
+        "nombre": "luis domingez herrera",
+        "edad": 35,
+        "dni": "33365321"
     },
     {
-        "contrasenia": "Msanchez",
-        "telefono": 2236819341,
-        "nombre": "Miranda Sanchez",
-        "edad": 41,
-        "dni": "33.561.992"
-    },
-    {
-        "contrasenia": "Mhernandez",
-        "telefono": 2236133985,
-        "nombre": "Miguel Hernandez",
-        "edad": 39,
-        "dni": "41.854.096"
-    },
-    {
-        "contrasenia": "Mpalermo",
-        "telefono": 223855934,
-        "nombre": "Martin Palermo",
-        "edad": 27,
-        "dni": "40.228.121"
+        "contrasenia": "Lhernandez",
+        "id": 576,
+        "telefono": 2239876543,
+        "nombre": "Luis hernandez",
+        "edad": 35,
+        "dni": "33.332.654"
     }
 ]

@@ -3,10 +3,7 @@ package menu;
 import Interfaz.MostrarListado;
 import clasesManejoTurnos.Agenda;
 import clasesManejoTurnos.Turno;
-import clasesPersonas.ListaMedicos;
-import clasesPersonas.Medico;
-import clasesPersonas.Paciente;
-import clasesPersonas.Persona;
+import clasesPersonas.*;
 import manejoJSON.GrabarJSONAgenda;
 import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoAgenda;
@@ -83,6 +80,24 @@ public class MenuPrincipal {
                 menuUser(paciente);
                 break;
             case 3:
+                List<Admin> admins = LeerArchivoPersonas.llenarListaAdmin();
+                System.out.printf("\ningrese su DNI: ");
+                String dniAdmin = scan.nextLine();
+                Admin admin = Admin.buscarAdminPorDNI(dniAdmin,admins);
+                if (admin == null){
+                    System.out.println("Admin no encontrado.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
+                    menu();
+                }
+                System.out.println("\nIngrese su contrasenia: ");
+                String contraseniaAdmin = scan.nextLine();
+                if (!admin.getContrasenia().equals(contraseniaAdmin)){
+                    System.out.println("Contrasenia incorrecta.");
+                    System.out.print("\nPresione Enter para continuar...");
+                    scan.nextLine();
+                    menu();
+                }
                 menuAdmin();
                 break;
 
@@ -97,10 +112,6 @@ public class MenuPrincipal {
     }
 
     public static void menuMedico(Medico medico) throws JSONException {
-        //eliminar turno
-        //modificar turno
-        //ver turnos propios
-
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
 
@@ -208,7 +219,7 @@ public class MenuPrincipal {
         int opcion = 0;
         System.out.println("\n====== MENU ADMINISTRADOR =======");
         System.out.println("[ 1 ] Ver medicos");
-        System.out.println("[ 2 ] Agregar medico");//AGREGAR LOGICA DEL IDTURNO A LOS MEDICOS PARA CREAR UNO
+        System.out.println("[ 2 ] Agregar medico");
         System.out.println("[ 3 ] Eliminar medico");//FALTA
         System.out.println("[ 4 ] Ver pacientes");
         System.out.println("[ 5 ] Agregar paciente");
@@ -229,6 +240,7 @@ public class MenuPrincipal {
                 break;
             case 2:
                 medicos = GrabarJSONPersonas.registrarMedico(medicos);
+                System.out.println("\nSe agrego correctamente.");
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();

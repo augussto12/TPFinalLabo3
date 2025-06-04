@@ -15,6 +15,12 @@ public abstract class Persona {
         this.contrasenia = contrasenia;
     }
 
+    public Persona(String nombreYapellido, String dni, String contrasenia) {
+        this.nombreYapellido = nombreYapellido;
+        this.dni = dni;
+        this.contrasenia = contrasenia;
+    }
+
     public Persona() {
 
     }

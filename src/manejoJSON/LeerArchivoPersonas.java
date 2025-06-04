@@ -1,5 +1,6 @@
 package manejoJSON;
 
+import clasesPersonas.Admin;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
 import clasesPersonas.Persona;
@@ -23,10 +24,9 @@ public class LeerArchivoPersonas {
             for (int i = 0; i < archivo.length(); i++) {
 
                 JSONObject personajson = archivo.getJSONObject(i);
-                int id = 0;
-                if (personajson.has("id")) {
+                if (personajson.has("especialidad")) {
 
-                    id = personajson.getInt("id");
+                    int id = personajson.getInt("id");
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
@@ -58,7 +58,7 @@ public class LeerArchivoPersonas {
             for (int i = 0; i < archivo.length(); i++) {
                 JSONObject personajson = archivo.getJSONObject(i);
                 int id = 0;
-                if (!personajson.has("id")) {
+                if (!personajson.has("id") && personajson.has("telefono")) {
 
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
@@ -75,6 +75,31 @@ public class LeerArchivoPersonas {
             throw new RuntimeException(e);
         }
         return listaPacientes;
+    }
+    public static List<Admin> llenarListaAdmin (){
+
+        List<Admin> listaAdmin = new ArrayList<>();
+        try {
+            JSONArray archivo = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
+            List<Admin> admins = new ArrayList<>();
+
+            for (int i = 0; i < archivo.length(); i++) {
+                JSONObject personajson = archivo.getJSONObject(i);
+                if (!personajson.has("telefono")) {
+
+                    String nombre = personajson.getString("nombre");
+                    String dni = personajson.getString("dni");
+                    String contrasenia = personajson.getString("contrasenia");
+
+                    Admin a = new Admin(nombre,dni,contrasenia);
+                    admins.add(a);
+                }
+                listaAdmin = admins;
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return listaAdmin;
     }
 
     public static void mostrarListaMedicos(List<Medico> medicos) {

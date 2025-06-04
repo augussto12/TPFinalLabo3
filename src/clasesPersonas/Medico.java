@@ -1,6 +1,7 @@
 package clasesPersonas;
 
 import Interfaz.MostrarListado;
+import clasesManejoTurnos.Turno;
 import extras.Especialidades;
 import manejoJSON.LeerArchivoPersonas;
 
@@ -65,6 +66,21 @@ public class Medico extends Persona implements MostrarListado {
                 System.out.println("El DNI " + dni + " ya está registrado. Por favor, ingrese uno diferente.");
             }
         } while (buscarMedicoPorDNI(dni, medicos) != null);
+
+        int idMedico;
+        boolean idRepetido;
+        do {
+            idMedico = (int) (Math.random() * 1000);
+            idRepetido = false;
+
+            for (Medico m : medicos) {
+                if (m.getId() == idMedico) {
+                    idRepetido = true;
+                    break;
+                }
+            }
+        } while (idRepetido);
+
         System.out.println("Ingrese su contrasenia: ");
         String contrasenia = scan.nextLine();
         System.out.println("Ingrese su edad: ");
@@ -96,7 +112,7 @@ public class Medico extends Persona implements MostrarListado {
                 break;
         }
 
-        Medico medicoNuevo = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, 1);
+        Medico medicoNuevo = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, idMedico);
         return medicoNuevo;
 
     }
