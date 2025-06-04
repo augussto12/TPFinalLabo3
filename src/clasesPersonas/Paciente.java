@@ -1,22 +1,23 @@
 package clasesPersonas;
 
+import Interfaz.MostrarListado;
+import manejoJSON.JSONUtiles;
+import manejoJSON.LeerArchivoPersonas;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Paciente extends Persona {
+public class Paciente extends Persona implements MostrarListado {
 
     public Paciente(String nombreYapellido, int edad, String dni, long telefono, String contrasenia) {
         super(nombreYapellido, edad, dni, telefono, contrasenia);
     }
 
-    /*public String getContrasenia() {
-            return contrasenia;
-        }
+    public Paciente() {
+        super();
+    }
 
-        public void setContrasenia(String contrasenia) {
-            this.contrasenia = contrasenia;
-        }*/
     public static Paciente buscarPacientePorDNI(String dni, List<Paciente> pacientes) {
         Paciente paciente = null;
         for (Paciente p : pacientes) {
@@ -28,7 +29,7 @@ public class Paciente extends Persona {
     }
 
 
-    public static Paciente pedirDatosDeRegistroAlUsuario(List<Paciente> pacientes) {
+    public static Paciente pedirDatosDeRegistroAlPaciente(List<Paciente> pacientes) {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese su nombre y apellido: ");
@@ -55,6 +56,21 @@ public class Paciente extends Persona {
         Paciente pacienteNuevo = new Paciente(nombre, edad, dni, telefono, contrasenia);
         return pacienteNuevo;
 
+    }
+
+    @Override
+    public void mostrarLista() {
+        List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
+        int contador = 0;
+        for (Paciente p : pacientes) {
+            contador++;
+            System.out.printf("\n------Paciente " + contador + "--------");
+            System.out.printf("\nNombre: " + p.getNombreYapellido());
+            // System.out.printf("\ncontrasenia: " + p.getContrasenia());
+            System.out.printf("\nEdad: " + p.getEdad());
+            System.out.printf("\nTelefono: " + p.getTelefono());
+            System.out.printf("\nDni: " + p.getNombreYapellido());
+        }
     }
 
 

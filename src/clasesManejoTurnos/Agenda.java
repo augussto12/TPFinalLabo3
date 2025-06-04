@@ -80,7 +80,7 @@ public class Agenda {
         int id = scan.nextInt();
         scan.nextLine();
         Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
-        LocalDateTime fecha = Turno.verificarFecha(agenda.getAgenda(),id);
+        LocalDateTime fecha = Turno.verificarFecha(agenda.getAgenda(), id);
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
         Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
@@ -130,4 +130,14 @@ public class Agenda {
         GrabarJSONAgenda.llenarAgenda(agenda);
     }
 
+    public static void mostrarTodosLosTurnos() throws JSONException {
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        int contador = 1;
+        List<Turno> listaTurnos = agenda.getAgenda();
+        for (Turno t : listaTurnos) {
+            System.out.println("\n---------------Turno " + contador + "---------------");
+            mostrarUnTurno(t);
+            contador++;
+        }
+    }
 }

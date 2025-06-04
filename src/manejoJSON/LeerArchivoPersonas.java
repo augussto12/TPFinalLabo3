@@ -164,18 +164,6 @@ public class LeerArchivoPersonas {
     }
 
 
-    public static void mostrarListaPacientes(List<Paciente> pacientes) {
-        int contador = 0;
 
-        for (Paciente p : pacientes) {
-            contador++;
-            System.out.printf("\n------Paciente " + contador + "--------");
-            System.out.printf("\nNombre: " + p.getNombreYapellido());
-            // System.out.printf("\ncontrasenia: " + p.getContrasenia());
-            System.out.printf("\nEdad: " + p.getEdad());
-            System.out.printf("\nTelefono: " + p.getTelefono());
-            System.out.printf("\nDni: " + p.getNombreYapellido());
-        }
-    }
 
 }

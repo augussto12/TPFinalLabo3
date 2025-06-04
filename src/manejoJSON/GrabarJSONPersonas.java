@@ -1,6 +1,7 @@
 package manejoJSON;
 
 import Exceptions.PacienteInvalidoException;
+import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
 import extras.Especialidades;
 import org.json.JSONArray;
@@ -52,8 +53,6 @@ public class GrabarJSONPersonas {
                 case 4:
                     especialidad = Especialidades.NEUROLOGIA;
                     break;
-
-
             }
 
             personaJSON.put("nombre", nombre);
@@ -127,11 +126,49 @@ public class GrabarJSONPersonas {
         }
     }
 
-    public static List<Paciente> registrarUsuario(List<Paciente> pacientes) throws JSONException {
-        Paciente paciente = Paciente.pedirDatosDeRegistroAlUsuario(pacientes);
+    public static List<Paciente> registrarPaciente(List<Paciente> pacientes) throws JSONException {
+        Paciente paciente = Paciente.pedirDatosDeRegistroAlPaciente(pacientes);
         pacientes = agregarUnPaciente(paciente);
         agregarPacienteAlJSON(paciente);
         return pacientes;
+    }
+
+
+    public static List<Medico> agregarUnMedico(Medico nuevoMedico) throws JSONException {
+        if (nuevoMedico == null) {
+            throw new PacienteInvalidoException("El paciente no puede ser nulo");
+        }
+        List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
+        medicos.add(nuevoMedico);
+        return medicos;
+    }
+
+    public static void agregarMedicoAlJSON(Medico medico) {
+        JSONObject personaJSON = new JSONObject();
+
+        try {
+            personaJSON.put("nombre", medico.getNombreYapellido());
+            personaJSON.put("contrasenia", medico.getContrasenia());
+            personaJSON.put("dni", medico.getDni());
+            personaJSON.put("telefono", medico.getTelefono());
+            personaJSON.put("edad", medico.getEdad());
+            personaJSON.put("id",medico.getId());
+
+            JSONArray listadoMedicos = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
+            listadoMedicos.put(personaJSON);
+
+            JSONUtiles.grabar(listadoMedicos, "hospitalPersonas.json");
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Medico> registrarMedico(List<Medico> medicos) throws JSONException {
+        Medico medico = Medico.pedirDatosParaRegistrarMedico(medicos);
+        medicos = agregarUnMedico(medico);
+        agregarMedicoAlJSON(medico);
+        return medicos;
     }
 
 

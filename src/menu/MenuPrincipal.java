@@ -1,10 +1,12 @@
 package menu;
 
+import Interfaz.MostrarListado;
 import clasesManejoTurnos.Agenda;
 import clasesManejoTurnos.Turno;
 import clasesPersonas.ListaMedicos;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
+import clasesPersonas.Persona;
 import manejoJSON.GrabarJSONAgenda;
 import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoAgenda;
@@ -24,7 +26,7 @@ public class MenuPrincipal {
         System.out.printf("\n======HOSPITAL========");
         System.out.printf("\n[ 1 ] Si es medico.");
         System.out.printf("\n[ 2 ] Si es un paciente.");
-        System.out.printf("\n[ 3 ] Administrador.");
+        System.out.printf("\n[ 3 ] Administrador.");//VERIFICAR CREEDENCIALES DEL ADMINISTRADOR
         System.out.printf("\n[ 4 ] Para registrarse como paciente.");
         System.out.printf("\n[ 0 ] Si desea terminar el programa");
         System.out.printf("\n\nSu eleccion: ");
@@ -81,11 +83,11 @@ public class MenuPrincipal {
                 menuUser(paciente);
                 break;
             case 3:
-
+                menuAdmin();
                 break;
 
-                case 4:
-                pacientes = GrabarJSONPersonas.registrarUsuario(pacientes);
+            case 4:
+                pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menu();
@@ -114,16 +116,16 @@ public class MenuPrincipal {
         scan.nextLine();
         switch (opcion) {
             case 1:
-                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
+                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getNombreYapellido());
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuMedico(medico);
                 break;
             case 2:
-                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(),medico.getNombreYapellido());
+                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getNombreYapellido());
                 System.out.println("\nIngrese el id del turno a reprogramar: ");
-                int idDeTurnoAreprogramar=scan.nextInt();
-                agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(),idDeTurnoAreprogramar,medico.getId()));
+                int idDeTurnoAreprogramar = scan.nextInt();
+                agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(), idDeTurnoAreprogramar, medico.getId()));
                 GrabarJSONAgenda.llenarAgenda(agenda);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
@@ -174,16 +176,16 @@ public class MenuPrincipal {
                 }
                 break;
             case 3:
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
                 System.out.println("Id del turno que desea eliminar: ");
                 int idAeliminar = scan.nextInt();
-                Agenda.eliminarUnTurnoMio(idAeliminar,agenda);
+                Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
                 System.out.printf("\nTurnos actualizados: ");
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
                 menuUser(paciente);
                 break;
             case 4:
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuUser(paciente);
@@ -197,7 +199,7 @@ public class MenuPrincipal {
 
     }
 
-/*
+
     public static void menuAdmin() throws JSONException {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
@@ -206,11 +208,11 @@ public class MenuPrincipal {
         int opcion = 0;
         System.out.println("\n====== MENU ADMINISTRADOR =======");
         System.out.println("[ 1 ] Ver medicos");
-        System.out.println("[ 2 ] Agregar medico");
-        System.out.println("[ 3 ] Eliminar medico");
+        System.out.println("[ 2 ] Agregar medico");//AGREGAR LOGICA DEL IDTURNO A LOS MEDICOS PARA CREAR UNO
+        System.out.println("[ 3 ] Eliminar medico");//FALTA
         System.out.println("[ 4 ] Ver pacientes");
         System.out.println("[ 5 ] Agregar paciente");
-        System.out.println("[ 6 ] Eliminar paciente");
+        System.out.println("[ 6 ] Eliminar paciente");//FALTA
         System.out.println("[ 7 ] Ver turnos");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
@@ -219,38 +221,40 @@ public class MenuPrincipal {
 
         switch (opcion) {
             case 1:
-                LeerArchivoPersonas.mostrarListaMedicos(medicos);
+                MostrarListado listadoMedicos = new Medico();
+                listadoMedicos.mostrarLista();
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
                 break;
             case 2:
-                try {
-                    Turno nuevo = Agenda.sacarTurno(paciente);
-                    GrabarJSONAgenda.guardarEnjsonAgendaConUnTurnoNuevo(nuevo);
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menuUser(paciente);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            case 3:
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
-                System.out.println("Id del turno que desea eliminar: ");
-                int idAeliminar = scan.nextInt();
-                Agenda.eliminarUnTurnoMio(idAeliminar,agenda);
-                System.out.printf("\nTurnos actualizados: ");
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
-                menuUser(paciente);
-                break;
-            case 4:
-                Agenda.mostrarTodosMisTurnos(paciente,pacientes);
+                medicos = GrabarJSONPersonas.registrarMedico(medicos);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
-                menuUser(paciente);
+                menuAdmin();
+                break;
+            case 3:
+                break;
+            case 4:
+                MostrarListado listado = new Paciente();
+                listado.mostrarLista();
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin();
                 break;
             case 5:
+                pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin();
+                break;
+            case 6:
+                break;
+            case 7:
+                Agenda.mostrarTodosLosTurnos();
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin();
                 break;
             case 0:
                 menu();
@@ -259,8 +263,5 @@ public class MenuPrincipal {
 
     }
 
-
-
-*/
 
 }
