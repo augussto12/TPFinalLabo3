@@ -132,4 +132,15 @@ public class Medico extends Persona implements MostrarListado {
             System.out.printf("\nId: " + m.getId());
         }
     }
+
+    public static Medico buscarMedicoPorId(int id, List<Medico>medicos)  {
+        Medico medico = null;
+        for (Medico m : medicos){
+            if (m.getId() == id){
+                medico = m;
+            }
+        }
+        return medico;
+    }
+
 }

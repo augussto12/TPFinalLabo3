@@ -1,105 +1,62 @@
 package manejoJSON;
 
-import Exceptions.PacienteInvalidoException;
+import Exceptions.IngresoInvalidoException;
+import Exceptions.IngresoInvalidoException;
+import clasesManejoTurnos.Turno;
+import clasesPersonas.Admin;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
+import clasesPersonas.Persona;
 import extras.Especialidades;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class GrabarJSONPersonas {
 
-    public static void llenarPersonas() throws JSONException {
+    public static void grabarPersonas(List<Persona> lista) throws JSONException {
 
         JSONArray archivo = new JSONArray();
-        Scanner scan = new Scanner(System.in);
 
-        for (int i = 0; i < 8; i++) {
-            JSONObject personaJSON = new JSONObject();
-            System.out.printf("\nNombre:");
-            String nombre = scan.nextLine();
-            System.out.printf("\nDni:");
-            String dni = scan.nextLine();
-            System.out.printf("\nTel:");
-            long telefono = scan.nextLong();
-            scan.nextLine();
-            System.out.printf("\nEdad:");
-            int edad = scan.nextInt();
-            scan.nextLine();
-            System.out.printf("\nContrasenia:");
-            String contrasenia = scan.nextLine();
-            Especialidades especialidad = null;
-            System.out.printf("\n[ 1 ] Cardiologia");
-            System.out.printf("\n[ 2 ] Pediatria");
-            System.out.printf("\n[ 3 ] Clinica");
-            System.out.printf("\n[ 4 ] Neurologia");
-            System.out.printf("\nsu eleccion:");
-            int eleccion = scan.nextInt();
-            scan.nextLine();
-            switch (eleccion) {
-                case 1:
-                    especialidad = Especialidades.CARDIOLOGIA;
-                    break;
-                case 2:
-                    especialidad = Especialidades.PEDIATRIA;
-                    break;
-                case 3:
-                    especialidad = Especialidades.CLINICA;
-                    break;
-                case 4:
-                    especialidad = Especialidades.NEUROLOGIA;
-                    break;
+        for (Persona p : lista) {
+            JSONObject personajson = new JSONObject();
+
+            if (p instanceof Medico) {
+
+                personajson.put("id", ((Medico) p).getId());
+                personajson.put("telefono", p.getTelefono());
+                personajson.put("nombre", p.getNombreYapellido());
+                personajson.put("edad", p.getEdad());
+                personajson.put("dni", p.getDni());
+                personajson.put("contrasenia", p.getContrasenia());
+                personajson.put("especialidad", ((Medico) p).getEspecialidad());
+
+            } else if (p instanceof Paciente) {
+
+                personajson.put("telefono", p.getTelefono());
+                personajson.put("nombre", p.getNombreYapellido());
+                personajson.put("edad", p.getEdad());
+                personajson.put("contrasenia", p.getContrasenia());
+                personajson.put("dni", p.getDni());
+
+            } else {
+                personajson.put("contrasenia", p.getContrasenia());
+                personajson.put("nombre", p.getNombreYapellido());
+                personajson.put("dni", p.getDni());
             }
-
-            personaJSON.put("nombre", nombre);
-            personaJSON.put("dni", dni);
-            personaJSON.put("telefono", telefono);
-            personaJSON.put("edad", edad);
-            personaJSON.put("id", i + 1);
-            personaJSON.put("especialidad", especialidad);
-            personaJSON.put("contrasenia", contrasenia);
-
-            archivo.put(personaJSON);
-            System.out.printf("\nSe agrego");
-        }
-        for (int j = 0; j < 3; j++) {
-
-            JSONObject personaJSON1 = new JSONObject();
-            System.out.printf("\nNombre:");
-            String nombre1 = scan.nextLine();
-            System.out.printf("\nContrasenia:");
-            String contrasenia = scan.nextLine();
-            System.out.printf("\nDni:");
-            String dni1 = scan.nextLine();
-            System.out.printf("\nTel:");
-            long telefono1 = scan.nextLong();
-            scan.nextLine();
-            System.out.printf("\nEdad:");
-            int edad1 = scan.nextInt();
-            scan.nextLine();
-
-
-            personaJSON1.put("nombre", nombre1);
-            personaJSON1.put("contrasenia", contrasenia);
-            personaJSON1.put("dni", dni1);
-            personaJSON1.put("telefono", telefono1);
-            personaJSON1.put("edad", edad1);
-
-            archivo.put(personaJSON1);
-
+            archivo.put(personajson);
         }
         JSONUtiles.grabar(archivo, "hospitalPersonas.json");
-
     }
-
 
     public static List<Paciente> agregarUnPaciente(Paciente nuevoPaciente) throws JSONException {
         if (nuevoPaciente == null) {
-            throw new PacienteInvalidoException("El paciente no puede ser nulo");
+            throw new IngresoInvalidoException("El paciente no puede ser nulo");
         }
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
         pacientes.add(nuevoPaciente);
@@ -136,7 +93,7 @@ public class GrabarJSONPersonas {
 
     public static List<Medico> agregarUnMedico(Medico nuevoMedico) throws JSONException {
         if (nuevoMedico == null) {
-            throw new PacienteInvalidoException("El paciente no puede ser nulo");
+            throw new IngresoInvalidoException("El medico no puede ser nulo");
         }
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         medicos.add(nuevoMedico);
@@ -152,7 +109,8 @@ public class GrabarJSONPersonas {
             personaJSON.put("dni", medico.getDni());
             personaJSON.put("telefono", medico.getTelefono());
             personaJSON.put("edad", medico.getEdad());
-            personaJSON.put("id",medico.getId());
+            personaJSON.put("id", medico.getId());
+            personaJSON.put("especialidad", medico.getEspecialidad().name());
 
             JSONArray listadoMedicos = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
             listadoMedicos.put(personaJSON);
@@ -171,6 +129,62 @@ public class GrabarJSONPersonas {
         return medicos;
     }
 
+    public static void eliminarMedico(int idAeliminar) throws JSONException {
+        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
+
+        Iterator<Persona> iterator = personas.iterator();
+        boolean eliminado = false;
+
+        while (iterator.hasNext()) {
+            Persona persona = iterator.next();
+
+            if (persona instanceof Medico) {
+                Medico medico = (Medico) persona;
+
+                if (medico.getId() == idAeliminar) {
+                    iterator.remove();
+                    eliminado = true;
+                    System.out.println("\nSe eliminó con éxito al médico con ID: " + idAeliminar);
+                    GrabarJSONAgenda.eliminarTurnosDelMedico(idAeliminar);
+                    break;
+                }
+            }
+        }
+
+        if (!eliminado) {
+            System.out.println("\nNo se encontró un médico con ID: " + idAeliminar);
+        }
+
+        grabarPersonas(personas);
+    }
+
+    public static void eliminarPaciente(String dniAeliminar) throws JSONException {
+        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
+        Iterator<Persona> iterator = personas.iterator();
+        boolean eliminado = false;
+
+        while (iterator.hasNext()) {
+            Persona persona = iterator.next();
+
+            if (persona instanceof Paciente) {
+                Paciente paciente = (Paciente) persona;
+
+                if (paciente.getDni().equals(dniAeliminar)) {
+                    iterator.remove();
+                    eliminado = true;
+                    System.out.println("\nSe eliminó con éxito al paciente con dni: " + dniAeliminar);
+                    GrabarJSONAgenda.eliminarTurnosDelPaciente(dniAeliminar);
+                    break;
+                }
+            }
+        }
+
+        if (!eliminado) {
+            System.out.println("\nNo se encontró un médico con ID: " + dniAeliminar);
+        }
+
+        grabarPersonas(personas);
+    }
 
 }
 

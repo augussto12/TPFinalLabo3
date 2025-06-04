@@ -15,6 +15,58 @@ import java.util.Scanner;
 
 public class LeerArchivoPersonas {
 
+    public static List<Persona> llenarPersonas (){
+
+        List<Persona> listaPersonas = new ArrayList<>();
+        try {
+            JSONArray archivo = new JSONArray(JSONUtiles.leer("hospitalPersonas.json"));
+            List<Persona> persona = new ArrayList<>();
+            for (int i = 0; i < archivo.length(); i++) {
+                JSONObject personajson = archivo.getJSONObject(i);
+
+                if (personajson.has("especialidad")) {
+
+                    int id = personajson.getInt("id");
+                    long telefono = personajson.getLong("telefono");
+                    String nombre = personajson.getString("nombre");
+                    int edad = personajson.getInt("edad");
+                    String dni = personajson.getString("dni");
+                    String contrasenia = personajson.getString("contrasenia");
+                    String especialidadjson = personajson.getString("especialidad");
+
+                    Especialidades especialidad = Especialidades.valueOf(especialidadjson);
+
+                    Persona m = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, id);
+                    listaPersonas.add(m);
+                } else if (!personajson.has("id") && personajson.has("telefono")) {
+
+                    long telefono = personajson.getLong("telefono");
+                    String nombre = personajson.getString("nombre");
+                    int edad = personajson.getInt("edad");
+                    String dni = personajson.getString("dni");
+                    String contrasenia = personajson.getString("contrasenia");
+
+                    Persona p = new Paciente(nombre, edad, dni, telefono, contrasenia);
+                    listaPersonas.add(p);
+                } else if (!personajson.has("telefono")) {
+
+                    String nombre = personajson.getString("nombre");
+                    String dni = personajson.getString("dni");
+                    String contrasenia = personajson.getString("contrasenia");
+
+                    Persona a = new Admin(nombre,dni,contrasenia);
+                    listaPersonas.add(a);
+                }
+
+            }
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+       return listaPersonas;
+    }
+
+
     public static List<Medico> llenarlistamedicos() {
         List<Medico> listaMedicos = new ArrayList<>();
         try {
@@ -24,7 +76,7 @@ public class LeerArchivoPersonas {
             for (int i = 0; i < archivo.length(); i++) {
 
                 JSONObject personajson = archivo.getJSONObject(i);
-                if (personajson.has("especialidad")) {
+                if (personajson.has("id")) {
 
                     int id = personajson.getInt("id");
                     long telefono = personajson.getLong("telefono");
@@ -39,6 +91,7 @@ public class LeerArchivoPersonas {
                     Medico m = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, id);
                     medicos.add(m);
                 }
+
 
             }
             listaMedicos = medicos;

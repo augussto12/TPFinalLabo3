@@ -23,7 +23,7 @@ public class MenuPrincipal {
         System.out.printf("\n======HOSPITAL========");
         System.out.printf("\n[ 1 ] Si es medico.");
         System.out.printf("\n[ 2 ] Si es un paciente.");
-        System.out.printf("\n[ 3 ] Administrador.");//VERIFICAR CREEDENCIALES DEL ADMINISTRADOR
+        System.out.printf("\n[ 3 ] Si es administrador.");
         System.out.printf("\n[ 4 ] Para registrarse como paciente.");
         System.out.printf("\n[ 0 ] Si desea terminar el programa");
         System.out.printf("\n\nSu eleccion: ");
@@ -36,7 +36,7 @@ public class MenuPrincipal {
                 scan.nextLine();
 
                 List<Medico> medicos1 = LeerArchivoPersonas.llenarlistamedicos();
-                Medico medico = ListaMedicos.buscarMedicoPorId(idMedico, medicos);
+                Medico medico = Medico.buscarMedicoPorId(idMedico, medicos);
 
                 if (medico == null) {
                     System.out.println("\nMédico no encontrado.");
@@ -81,9 +81,9 @@ public class MenuPrincipal {
                 break;
             case 3:
                 List<Admin> admins = LeerArchivoPersonas.llenarListaAdmin();
-                System.out.printf("\ningrese su DNI: ");
-                String dniAdmin = scan.nextLine();
-                Admin admin = Admin.buscarAdminPorDNI(dniAdmin,admins);
+                System.out.printf("\ningrese su usuario: ");
+                String userAdmin = scan.nextLine();
+                Admin admin = Admin.buscarAdminPorUser(userAdmin,admins);
                 if (admin == null){
                     System.out.println("Admin no encontrado.");
                     System.out.print("\nPresione Enter para continuar...");
@@ -220,10 +220,10 @@ public class MenuPrincipal {
         System.out.println("\n====== MENU ADMINISTRADOR =======");
         System.out.println("[ 1 ] Ver medicos");
         System.out.println("[ 2 ] Agregar medico");
-        System.out.println("[ 3 ] Eliminar medico");//FALTA
+        System.out.println("[ 3 ] Eliminar medico");
         System.out.println("[ 4 ] Ver pacientes");
         System.out.println("[ 5 ] Agregar paciente");
-        System.out.println("[ 6 ] Eliminar paciente");//FALTA
+        System.out.println("[ 6 ] Eliminar paciente");
         System.out.println("[ 7 ] Ver turnos");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
@@ -246,6 +246,13 @@ public class MenuPrincipal {
                 menuAdmin();
                 break;
             case 3:
+                LeerArchivoPersonas.mostrarTodosLosMedicos(medicos);
+                System.out.println("\nIngrese el id del medico a eliminar (tambien se van a eliminar sus turnos):");
+                int idAeliminar=Turno.validarEntero();
+                GrabarJSONPersonas.eliminarMedico(idAeliminar);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin();
                 break;
             case 4:
                 MostrarListado listado = new Paciente();
@@ -261,6 +268,14 @@ public class MenuPrincipal {
                 menuAdmin();
                 break;
             case 6:
+                MostrarListado listado1=new Paciente();
+                listado1.mostrarLista();
+                System.out.println("\nIngrese el dni del paciente a eliminar (tambien se van a eliminar sus turnos):");
+                String dniAeliminar= scan.nextLine();
+                GrabarJSONPersonas.eliminarPaciente(dniAeliminar);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuAdmin();
                 break;
             case 7:
                 Agenda.mostrarTodosLosTurnos();

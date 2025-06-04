@@ -69,7 +69,7 @@ public class Paciente extends Persona implements MostrarListado {
             // System.out.printf("\ncontrasenia: " + p.getContrasenia());
             System.out.printf("\nEdad: " + p.getEdad());
             System.out.printf("\nTelefono: " + p.getTelefono());
-            System.out.printf("\nDni: " + p.getNombreYapellido());
+            System.out.printf("\nDni: " + p.getDni());
         }
     }
 

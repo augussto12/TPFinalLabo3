@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LeerArchivoAgenda {
+
     public static Agenda LeerArchivo() throws JSONException {
 
         JSONObject archivo = new JSONObject(JSONUtiles.leer("hospitalAgenda.json"));

@@ -4,6 +4,7 @@ import clasesManejoTurnos.Agenda;
 import clasesManejoTurnos.Turno;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
+import clasesPersonas.Persona;
 import extras.Especialidades;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,14 +81,14 @@ public class GrabarJSONAgenda {
             int idTurno = turnoJSON.getInt("idTurno");
 
             JSONObject pacienteJSON = turnoJSON.getJSONObject("paciente");
-            Paciente paciente = new Paciente(pacienteJSON.getString("nombre"), pacienteJSON.getInt("edad"), pacienteJSON.getString("dni"),pacienteJSON.getLong("telefono"), pacienteJSON.getString("contrasenia"));
+            Paciente paciente = new Paciente(pacienteJSON.getString("nombre"), pacienteJSON.getInt("edad"), pacienteJSON.getString("dni"), pacienteJSON.getLong("telefono"), pacienteJSON.getString("contrasenia"));
 
             JSONObject medicoJSON = turnoJSON.getJSONObject("medico");
             String especialidadJSON = medicoJSON.getString("especialidad");
             Especialidades especialidad = Especialidades.valueOf(especialidadJSON);
-            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"),medicoJSON.getString("contrasenia"),especialidad, medicoJSON.getInt("id"));
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
 
-            Turno turnoNuevo = new Turno(fecha,medico,paciente,motivo,idTurno);
+            Turno turnoNuevo = new Turno(fecha, medico, paciente, motivo, idTurno);
             turnos.getAgenda().add(turnoNuevo);
 
         }
@@ -96,8 +97,37 @@ public class GrabarJSONAgenda {
 
         return turnos;
     }
-    public static void guardarEnjsonAgendaConUnTurnoNuevo (Turno turno) throws JSONException {
+
+    public static void guardarEnjsonAgendaConUnTurnoNuevo(Turno turno) throws JSONException {
         Agenda agenda = agregarUnTurno(turno);
         llenarAgenda(agenda);
+    }
+
+    public static void eliminarTurnosDelPaciente(String dniPaciente) throws JSONException {
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        int tiene = 0;
+        for (Turno t : agenda.getAgenda()) {
+            if (t.getCliente().getDni().equals(dniPaciente)) {
+                Agenda.eliminarUnTurnoMio(t.getIdTurno(), agenda);
+                tiene++;
+            }
+        }
+        if(tiene == 0){
+            System.out.println("El paciente no tiene turnos.");
+        }
+    }
+
+    public static void eliminarTurnosDelMedico(int idMedico) throws JSONException {
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+        int tiene = 0;
+        for (Turno t : agenda.getAgenda()) {
+            if (t.getMedico().getId() == idMedico) {
+                Agenda.eliminarUnTurnoMio(t.getIdTurno(), agenda);
+                tiene++;
+            }
+        }
+        if(tiene == 0){
+            System.out.println("El medico no tiene turnos.");
+        }
     }
 }

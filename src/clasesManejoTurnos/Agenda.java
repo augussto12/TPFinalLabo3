@@ -2,7 +2,6 @@ package clasesManejoTurnos;
 
 import clasesPersonas.Paciente;
 import clasesPersonas.Medico;
-import clasesPersonas.ListaMedicos;
 import manejoJSON.GrabarJSONAgenda;
 import manejoJSON.LeerArchivoAgenda;
 import manejoJSON.LeerArchivoPersonas;
@@ -79,7 +78,7 @@ public class Agenda {
         System.out.printf("\nIngrese el Id del medico que quiere:");
         int id = scan.nextInt();
         scan.nextLine();
-        Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
+        Medico medico = Medico.buscarMedicoPorId(id, medicos);
         LocalDateTime fecha = Turno.verificarFecha(agenda.getAgenda(), id);
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
@@ -124,7 +123,7 @@ public class Agenda {
             Turno t = iterator.next();
             if (idAeliminar == t.getIdTurno()) {
                 iterator.remove();
-                System.out.println("\nSe eliminó con éxito");
+                System.out.println("\nSe eliminó con éxito el turno");
             }
         }
         GrabarJSONAgenda.llenarAgenda(agenda);

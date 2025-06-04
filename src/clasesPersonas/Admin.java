@@ -10,10 +10,10 @@ public class Admin extends Persona{
     public Admin() {
     }
 
-    public static Admin buscarAdminPorDNI (String dni, List<Admin> lista){
+    public static Admin buscarAdminPorUser (String user, List<Admin> lista){
         Admin admin = null;
         for (Admin a : lista){
-            if (a.getDni().equals(dni)){
+            if (a.getNombreYapellido().equals(user)){
                 admin = a;
             }
         }
