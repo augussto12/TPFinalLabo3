@@ -60,7 +60,7 @@ public class Turno {
     }
 
 
-    public static LocalDateTime llenarFecha() {
+    public static LocalDateTime llenarFecha(List<Turno> turnos) {
         Scanner scan = new Scanner(System.in);
         boolean fechaValida = false;
         LocalDateTime fecha = null;
@@ -70,20 +70,24 @@ public class Turno {
                 System.out.println("Fecha para cuando quiere sacar turno");
                 //Agenda agenda = new Agenda();
                 System.out.printf("\nAnio: ");
-                int anio = scan.nextInt();
-                scan.nextLine();
+                int anio = validarEntero();
                 System.out.printf("\nMes: ");
-                int mes = scan.nextInt();
-                scan.nextLine();
+                int mes = validarEntero();
                 System.out.printf("\nDia: ");
-                int dia = scan.nextInt();
-                scan.nextLine();
+                int dia = validarEntero();
                 System.out.printf("\nHora: ");
-                int hora = scan.nextInt();
-                scan.nextLine();
+                int hora = validarEntero();
+                while ((hora < 8) || (hora > 20)) {
+                    System.out.println("La clinica atiende de 08:00 a 20:00");
+                    hora = validarEntero();
+                }
                 System.out.printf("\nMinuto: ");
-                int minuto = scan.nextInt();
-                scan.nextLine();
+                int minuto = validarEntero();
+                while ((minuto != 00) && (minuto != 30)) {
+                    System.out.println("Se puede sacar turno en hora en punto o y media");
+                    minuto = validarEntero();
+
+                }
                 fecha = LocalDateTime.of(anio, mes, dia, hora, minuto);
 
                 if (fecha.isBefore(LocalDateTime.now())) {
@@ -96,17 +100,51 @@ public class Turno {
                 scan.nextLine();
             }
 
+
         }
         return fecha;
     }
 
-    public static boolean fechaDisponible(LocalDateTime fecha, List<Turno> turnos) {
+
+    public static int validarEntero() {
+        Scanner scan = new Scanner(System.in);
+        while (!scan.hasNextInt()) {
+            System.out.println("Entrada inválida. Por favor, ingresa un número entero.");
+            scan.next();
+        }
+        int valor = scan.nextInt();
+        scan.nextLine();
+        return valor;
+    }
+//CHEQUEAR QUE ESTE BIEN LA VALIDACION DE STRING
+    public static String validarString() {
+        Scanner scan = new Scanner(System.in);
+        while (scan.hasNextInt()) { // Si detecta un entero, lo rechaza
+            System.out.println("Entrada inválida. Por favor, ingresa solo texto.");
+            scan.next(); // Descartar la entrada incorrecta
+        }
+        return scan.nextLine(); // Capturar la entrada válida
+    }
+
+    public static boolean fechaDisponibleMedico(LocalDateTime fecha, List<Turno> turnos, int id) {
         for (Turno t : turnos) {
-            if (fecha.equals(t.getFecha())) {
-                return false;
+            if (t.getMedico().getId() == id) {
+                if (fecha.equals(t.getFecha())) {
+                    return false;
+                }
             }
         }
         return true;
+    }
+
+    public static LocalDateTime verificarFecha(List<Turno> turnos, int id) {
+        LocalDateTime fecha = llenarFecha(turnos);
+
+        while (!fechaDisponibleMedico(fecha, turnos, id)) {
+            System.out.println("Turno no disponible, turno ocupado.");
+            fecha = llenarFecha(turnos);
+        }
+        return fecha;
     }
 
 

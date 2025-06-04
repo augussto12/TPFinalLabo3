@@ -80,7 +80,7 @@ public class Agenda {
         int id = scan.nextInt();
         scan.nextLine();
         Medico medico = ListaMedicos.buscarMedicoPorId(id, medicos);
-        LocalDateTime fecha = Turno.llenarFecha();
+        LocalDateTime fecha = Turno.verificarFecha(agenda.getAgenda(),id);
         System.out.printf("\n Motivo de consulta:");
         String motivo = scan.nextLine();
         Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);

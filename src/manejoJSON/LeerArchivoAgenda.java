@@ -58,32 +58,14 @@ public class LeerArchivoAgenda {
         }
     }
 
-    public static List<Turno> reprogramarTurno(List<Turno> turnos, int idAreprogramar) {
+    public static List<Turno> reprogramarTurno(List<Turno> turnos, int idAreprogramar, int idMedico) {
         Iterator<Turno> iterator = turnos.iterator();
         while (iterator.hasNext()) {
             Turno t = iterator.next();
             if (idAreprogramar == t.getIdTurno()) {
-                System.out.println("Elija que campo quiere modificar: ");
-
-                Scanner scan = new Scanner(System.in);
-                int eleccion = 0;
-                System.out.println("\n======TURNOS========");
-                System.out.println("[ 1 ] Modificar fecha");
-                System.out.println("[ 0 ] Volver al menú principal");
-                System.out.printf("\nSu eleccion: ");
-                eleccion = scan.nextInt();
-                scan.nextLine();
-                switch (eleccion) {
-                    case 1:
-                        System.out.println("Ingrese la fecha actualizada");
-                        LocalDateTime fecha = Turno.llenarFecha();
-                        t.setFecha(fecha);
-                        break;
-                    case 0:
-                        //
-                        break;
-
-                }
+                System.out.println("Ingrese la fecha actualizada");
+                LocalDateTime fecha = Turno.verificarFecha(turnos, idMedico);
+                t.setFecha(fecha);
             }
         }
         return turnos;

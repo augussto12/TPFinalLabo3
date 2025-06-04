@@ -1,6 +1,6 @@
 {"turnos": [
     {
-        "fecha": "03/06/2026 16:45",
+        "fecha": "30/12/2025 19:30",
         "motivo": "chequeo anual",
         "paciente": {
             "contrasenia": "Calvarez",
@@ -82,5 +82,47 @@
             "dni": "28.566.129"
         },
         "idTurno": 468
+    },
+    {
+        "fecha": "20/07/2025 15:30",
+        "motivo": "Me duele el abdomen",
+        "paciente": {
+            "contrasenia": "Mhernandez",
+            "telefono": 2236133985,
+            "nombre": "Miguel Hernandez",
+            "edad": 39,
+            "dni": "41.854.096"
+        },
+        "medico": {
+            "contrasenia": "Msanchez",
+            "id": 3,
+            "telefono": 223671212,
+            "nombre": "Martina Sanchez",
+            "edad": 28,
+            "especialidad": "CLINICA",
+            "dni": "40.299.981"
+        },
+        "idTurno": 149
+    },
+    {
+        "fecha": "15/08/2025 09:00",
+        "motivo": "chequeo radiologico",
+        "paciente": {
+            "contrasenia": "Mhernandez",
+            "telefono": 2236133985,
+            "nombre": "Miguel Hernandez",
+            "edad": 39,
+            "dni": "41.854.096"
+        },
+        "medico": {
+            "contrasenia": "Hfuente",
+            "id": 8,
+            "telefono": 2234893111,
+            "nombre": "Hernan de la Fuente",
+            "edad": 61,
+            "especialidad": "NEUROLOGIA",
+            "dni": "19.561.222"
+        },
+        "idTurno": 748
     }
 ]}
