@@ -69,5 +69,19 @@
         "nombre": "Miguel Lopez",
         "edad": 49,
         "dni": 39189584
+    },
+    {
+        "contrasenia": "Vgiungi",
+        "telefono": 2235049768,
+        "nombre": "valentino giungi",
+        "edad": 20,
+        "dni": 45922938
+    },
+    {
+        "contrasenia": "Mluiz",
+        "telefono": 2236544321,
+        "nombre": "mario luiz",
+        "edad": 87,
+        "dni": 14876345
     }
 ]

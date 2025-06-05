@@ -162,7 +162,6 @@ public class Medico extends Persona implements MostrarListado {
 
     public static void mostrarListaMedicos(List<Medico> medicos) {
         int contador = 0;
-        Scanner scan = new Scanner(System.in);
         int opcion = 0;
         System.out.println("[ 1 ] Ver medicos por especialidad");
         System.out.println("[ 2 ] Ver todos los medicos");

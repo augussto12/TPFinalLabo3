@@ -76,12 +76,11 @@ public class Agenda {
                 }
             }
         } while (idRepetido);
-        Scanner scan = new Scanner(System.in);
+        /// ////////////////////
         System.out.printf("\nMEDICOS DISPONIBLES:\n");
         Medico.mostrarListaMedicos(medicos);
         System.out.printf("\nIngrese el Id del medico que quiere:");
         int id = Validar.validarEntero();
-        scan.nextLine();
         Medico medico = Medico.buscarMedicoPorId(id, medicos);
         if (medico == null) {
             throw new IngresoInvalidoException("Médico con ID " + id + " no encontrado.");

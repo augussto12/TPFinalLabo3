@@ -40,24 +40,24 @@ public class Paciente extends Persona implements MostrarListado {
     public static Paciente pedirDatosDeRegistroAlPaciente(List<Paciente> pacientes) {
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Ingrese su nombre y apellido: ");
+        System.out.printf("\nIngrese su nombre y apellido: ");
         String nombre = Validar.validarString();
 
         long dni;
         do {
-            System.out.println("Ingrese su DNI (funciona como nombre de usuario): ");
+            System.out.printf("\nIngrese su DNI (funciona como nombre de usuario): ");
             dni = Validar.validarLong();
 
             if (buscarPacientePorDNI(dni, pacientes) != null) {
-                System.out.println("El DNI " + dni + " ya está registrado. Por favor, ingrese uno diferente.");
+                System.out.println("\nEl DNI " + dni + " ya está registrado. Por favor, ingrese uno diferente: ");
             }
         } while (buscarPacientePorDNI(dni, pacientes) != null);
-        System.out.println("Ingrese su contrasenia: ");
+        System.out.printf("\nIngrese su contrasenia: ");
         String contrasenia = scan.nextLine();
-        System.out.println("Ingrese su edad: ");
+        System.out.printf("\nIngrese su edad: ");
         int edad = scan.nextInt();
         scan.nextLine();
-        System.out.println("Ingrese su telefono: ");
+        System.out.printf("\nIngrese su telefono: ");
         long telefono = scan.nextLong();
         scan.nextLine();
 
@@ -116,7 +116,7 @@ public class Paciente extends Persona implements MostrarListado {
 
     public static void eliminarTurno(Paciente paciente, List<Paciente> pacientes, Scanner scan, Agenda agenda) throws JSONException {
         Agenda.mostrarTodosMisTurnos(paciente, pacientes, agenda);
-        System.out.println("Id del turno que desea eliminar: ");
+        System.out.printf("\nId del turno que desea eliminar");
         int idAeliminar = scan.nextInt();
         Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
     }

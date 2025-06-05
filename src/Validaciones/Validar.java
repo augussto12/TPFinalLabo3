@@ -25,7 +25,6 @@ public class Validar {
             scan.next();
         }
         int valor = scan.nextInt();
-        scan.nextLine();
         return valor;
     }
 
@@ -42,7 +41,7 @@ public class Validar {
     public static long validarLong() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextLong()) {
-            System.out.println("Entrada inválida.");
+            System.out.println("Entrada inválida, ingrese el valor de nuevo: ");
             scan.next();
         }
         long valor = scan.nextLong();

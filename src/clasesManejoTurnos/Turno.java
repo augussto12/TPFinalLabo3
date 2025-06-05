@@ -81,7 +81,7 @@ public class Turno {
                     System.out.println("La clinica atiende de 08:00 a 20:00");
                     hora = Validar.validarEntero();
                 }
-                System.out.printf("minutos: ");
+                System.out.printf("\nminutos: ");
                 int minuto = Validar.validarEntero();
                 while ((minuto != 00) && (minuto != 30)) {
                     System.out.println("Se puede sacar turno en hora en punto o y media");
