@@ -1,13 +1,13 @@
 {"turnos": [
     {
-        "fecha": "15/09/2025 13:00",
-        "motivo": "me duele la chota",
+        "fecha": "29/07/2025 14:00",
+        "motivo": "Chequeo anual",
         "paciente": {
-            "contrasenia": "Lhernandez",
-            "telefono": 2239876543,
-            "nombre": "Luis hernandez",
-            "edad": 35,
-            "dni": 33332654
+            "contrasenia": "Paguero",
+            "telefono": 2234233487,
+            "nombre": "pedro aguero",
+            "edad": 20,
+            "dni": 45993142
         },
         "medico": {
             "contrasenia": "Mpereira",
@@ -18,17 +18,17 @@
             "especialidad": "CLINICA",
             "dni": 28566129
         },
-        "idTurno": 52
+        "idTurno": 213
     },
     {
-        "fecha": "01/09/2025 19:30",
-        "motivo": "al pola le duele la cola",
+        "fecha": "29/08/2025 14:30",
+        "motivo": "",
         "paciente": {
-            "contrasenia": "Lhernandez",
-            "telefono": 2239876543,
-            "nombre": "Luis hernandez",
-            "edad": 35,
-            "dni": 33332654
+            "contrasenia": "Paguero",
+            "telefono": 2234233487,
+            "nombre": "pedro aguero",
+            "edad": 20,
+            "dni": 45993142
         },
         "medico": {
             "contrasenia": "Mpereira",
@@ -39,6 +39,6 @@
             "especialidad": "CLINICA",
             "dni": 28566129
         },
-        "idTurno": 523
+        "idTurno": 89
     }
 ]}

@@ -96,10 +96,9 @@ public class Turno {
                     fechaValida = true;
                 }
             } catch (DateTimeException e) {
-                System.out.println("Fecha invalida. Ingrese otra fecha.");
-                scan.nextLine();
-            }
+                System.out.println("Fecha invalida. Ingrese otra fecha(Presione enter).");
 
+            }
 
         }
         return fecha;

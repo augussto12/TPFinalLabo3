@@ -52,9 +52,9 @@ public class MenuPrincipal {
         System.out.println("[ 1 ] Si es médico");
         System.out.println("[ 2 ] Si es paciente");
         System.out.println("[ 3 ] Si es administrador");
-        System.out.println("[ 4 ] Registrarse");
+        System.out.println("[ 4 ] Registrate como paciente");
         System.out.println("[ 0 ] Salir");
-        System.out.println("--------------------");
+        System.out.println("----------------------------------------");
         System.out.print("Su eleccion: ");
         int opcion = Validar.validarSwitch(4);
         return opcion;

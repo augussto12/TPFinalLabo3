@@ -136,12 +136,10 @@ public class Medico extends Persona implements MostrarListado {
     public static Medico pedirDatosDeInicioDeSesion(List<Medico> medicos) throws JSONException {
         Scanner scan = new Scanner(System.in);
         System.out.printf("\nIngrese su ID: ");
-        int idMedico = scan.nextInt();
-        scan.nextLine();
+        int idMedico = Validar.validarEntero();
 
         List<Medico> medicos1 = LeerArchivoPersonas.llenarlistamedicos();
         Medico medico = Medico.buscarMedicoPorId(idMedico, medicos);
-
         if (medico == null) {
             System.out.println("\nMédico no encontrado.");
             System.out.print("\nPresione Enter para continuar...");
@@ -150,7 +148,7 @@ public class Medico extends Persona implements MostrarListado {
         }
 
         System.out.printf("\nIngrese su contraseña: ");
-        String contraseniaMedico = scan.nextLine();
+        String contraseniaMedico = Validar.validarString();
         if (!medico.getContrasenia().equals(contraseniaMedico)) {
             System.out.println("\nContraseña incorrecta.");
             System.out.print("\nPresione Enter para continuar...");

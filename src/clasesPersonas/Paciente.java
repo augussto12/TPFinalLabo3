@@ -115,10 +115,13 @@ public class Paciente extends Persona implements MostrarListado {
     }
 
     public static void eliminarTurno(Paciente paciente, List<Paciente> pacientes, Scanner scan, Agenda agenda) throws JSONException {
-        Agenda.mostrarTodosMisTurnos(paciente, pacientes, agenda);
-        System.out.printf("\nId del turno que desea eliminar");
-        int idAeliminar = scan.nextInt();
-        Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
+        int contador=Agenda.mostrarTodosMisTurnos(paciente, pacientes, agenda);
+        if (contador>1)
+        {
+            System.out.printf("\nId del turno que desea eliminar");
+            int idAeliminar = Validar.validarEntero();
+            Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
+        }
     }
 
     public static void agregarUnPacienteALaLista(Paciente nuevoPaciente, List<Paciente> pacientes) throws JSONException {

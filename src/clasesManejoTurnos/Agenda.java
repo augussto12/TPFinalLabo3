@@ -79,7 +79,7 @@ public class Agenda {
         /// ////////////////////
         System.out.printf("\nMEDICOS DISPONIBLES:\n");
         Medico.mostrarListaMedicos(medicos);
-        System.out.printf("\nIngrese el Id del medico que quiere:");
+        System.out.printf("\nIngrese el Id del medico que quiere ver:");
         int id = Validar.validarEntero();
         Medico medico = Medico.buscarMedicoPorId(id, medicos);
         if (medico == null) {
@@ -105,7 +105,7 @@ public class Agenda {
     }
 
 
-    public static void mostrarTurnosPropios(Paciente paciente, List<Turno> listaTurnos) {
+    public static int mostrarTurnosPropios(Paciente paciente, List<Turno> listaTurnos) {
         int contador = 1;
         for (Turno t : listaTurnos) {
             if (t.getCliente().getDni() == (paciente.getDni())) {
@@ -114,13 +114,23 @@ public class Agenda {
                 contador++;
             }
         }
+        if(contador<=1)
+        {
+            System.out.println("\n---------------No tiene turnos pendientes---------------");
+        }
+        return contador;
 
     }
 
-    public static void mostrarTodosMisTurnos(Paciente paciente, List<Paciente> pacientes, Agenda agenda) throws JSONException {
+    public static int mostrarTodosMisTurnos(Paciente paciente, List<Paciente> pacientes, Agenda agenda) throws JSONException {
         List<Turno> listadoTurnos = agenda.getAgenda();
         Paciente pacienteEncontrado = Paciente.encontrarPaciente(paciente.getDni(), pacientes);
-        Agenda.mostrarTurnosPropios(pacienteEncontrado, listadoTurnos);
+        int contador=0;
+        if(pacienteEncontrado!=null)
+        {
+            contador=Agenda.mostrarTurnosPropios(pacienteEncontrado, listadoTurnos);
+        }
+        return contador;
     }
 
     public static void eliminarUnTurnoMio(int idAeliminar, Agenda agenda) throws JSONException {

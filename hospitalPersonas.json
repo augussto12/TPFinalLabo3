@@ -1,14 +1,5 @@
 [
     {
-        "contrasenia": "Paguero",
-        "id": 13,
-        "telefono": 223567121,
-        "nombre": "Pedro Aguero",
-        "edad": 23,
-        "especialidad": "CARDIOLOGIA",
-        "dni": 39567212
-    },
-    {
         "contrasenia": "Llopez",
         "id": 189,
         "telefono": 223671121,
@@ -41,34 +32,11 @@
         "dni": 45922938
     },
     {
-        "contrasenia": "Msanchez",
-        "telefono": 2236819341,
-        "nombre": "Miranda Sanchez",
-        "edad": 41,
-        "dni": 33561992
-    },
-    {
         "contrasenia": "Calvarez",
         "telefono": 2238955213,
         "nombre": "Candela Alvarez",
         "edad": 28,
         "dni": 40561999
-    },
-    {
-        "contrasenia": "rricardo",
-        "id": 317,
-        "telefono": 2235123141,
-        "nombre": "Ricardo",
-        "edad": 48,
-        "especialidad": "CARDIOLOGIA",
-        "dni": 38933213
-    },
-    {
-        "contrasenia": "Mlopez",
-        "telefono": 2237593812,
-        "nombre": "Miguel Lopez",
-        "edad": 49,
-        "dni": 39189584
     },
     {
         "contrasenia": "Vgiungi",
@@ -78,10 +46,26 @@
         "dni": 45922938
     },
     {
-        "contrasenia": "Mluiz",
-        "telefono": 2236544321,
-        "nombre": "mario luiz",
-        "edad": 87,
-        "dni": 14876345
+        "contrasenia": "Paguero",
+        "telefono": 2234233487,
+        "nombre": "pedro aguero",
+        "edad": 20,
+        "dni": 45993142
+    },
+    {
+        "contrasenia": "Fgomez",
+        "id": 998,
+        "telefono": 2239874513,
+        "nombre": "facundo gomez",
+        "edad": 34,
+        "especialidad": "NEUROLOGIA",
+        "dni": 33555999
+    },
+    {
+        "contrasenia": "Aalvarez",
+        "telefono": 2236664444,
+        "nombre": "Augusto Alvarez",
+        "edad": 26,
+        "dni": 41333999
     }
 ]
