@@ -1,6 +1,7 @@
 package clasesPersonas;
 
 import Interfaz.MostrarListado;
+import Validaciones.Validar;
 import manejoJSON.JSONUtiles;
 import manejoJSON.LeerArchivoPersonas;
 
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class Paciente extends Persona implements MostrarListado {
 
-    public Paciente(String nombreYapellido, int edad, String dni, long telefono, String contrasenia) {
+    public Paciente(String nombreYapellido, int edad, long dni, long telefono, String contrasenia) {
         super(nombreYapellido, edad, dni, telefono, contrasenia);
     }
 
@@ -18,10 +19,10 @@ public class Paciente extends Persona implements MostrarListado {
         super();
     }
 
-    public static Paciente buscarPacientePorDNI(String dni, List<Paciente> pacientes) {
+    public static Paciente buscarPacientePorDNI(long dni, List<Paciente> pacientes) {
         Paciente paciente = null;
         for (Paciente p : pacientes) {
-            if (Objects.equals(p.getDni(), dni)) {
+            if (p.getDni() == dni) {
                 paciente = p;
             }
         }
@@ -33,12 +34,12 @@ public class Paciente extends Persona implements MostrarListado {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese su nombre y apellido: ");
-        String nombre = scan.nextLine();
+        String nombre = Validar.validarString();
 
-        String dni;
+        long dni;
         do {
             System.out.println("Ingrese su DNI (funciona como nombre de usuario): ");
-            dni = scan.nextLine();
+            dni = Validar.validarLong();
 
             if (buscarPacientePorDNI(dni, pacientes) != null) {
                 System.out.println("El DNI " + dni + " ya está registrado. Por favor, ingrese uno diferente.");

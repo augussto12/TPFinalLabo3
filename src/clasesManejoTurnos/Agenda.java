@@ -1,5 +1,8 @@
 package clasesManejoTurnos;
 
+import Exceptions.IngresoInvalidoException;
+import Exceptions.TurnoNoDisponibleException;
+import Validaciones.Validar;
 import clasesPersonas.Paciente;
 import clasesPersonas.Medico;
 import manejoJSON.GrabarJSONAgenda;
@@ -76,21 +79,36 @@ public class Agenda {
         System.out.printf("\nMEDICOS DISPONIBLES:\n");
         LeerArchivoPersonas.mostrarListaMedicos(medicos);
         System.out.printf("\nIngrese el Id del medico que quiere:");
-        int id = scan.nextInt();
+        int id = Validar.validarEntero();
         scan.nextLine();
         Medico medico = Medico.buscarMedicoPorId(id, medicos);
-        LocalDateTime fecha = Turno.verificarFecha(agenda.getAgenda(), id);
-        System.out.printf("\n Motivo de consulta:");
-        String motivo = scan.nextLine();
+        if (medico == null) {
+            throw new IngresoInvalidoException("Médico con ID " + id + " no encontrado.");
+        }
+        System.out.println("Fecha para cuando quiere sacar turno");
+        LocalDateTime fecha = null;
+        boolean fechaValida = false;
+        while (!fechaValida) {
+            try {
+                fecha = Turno.verificarFecha(agenda.getAgenda(), id);
+                fechaValida = true;
+            } catch (TurnoNoDisponibleException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ingrese otra fecha");
+            }
+        }
+
+        System.out.printf("\nMotivo de consulta:");
+        String motivo = Validar.validarString();
         Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
         return turno;
     }
 
 
-    public static Paciente encontrarPaciente(String dni, List<Paciente> pacientes) {
+    public static Paciente encontrarPaciente(long dni, List<Paciente> pacientes) {
         Paciente pacienteEncontrado = null;
         for (Paciente p : pacientes) {
-            if (p.getDni().equals(dni)) {
+            if (dni == p.getDni()) {
                 pacienteEncontrado = p;
             }
         }
@@ -100,7 +118,7 @@ public class Agenda {
     public static void mostrarTurnosPropios(Paciente paciente, List<Turno> listaTurnos) {
         int contador = 1;
         for (Turno t : listaTurnos) {
-            if (t.getCliente().getDni().equals(paciente.getDni())) {
+            if (t.getCliente().getDni() == (paciente.getDni())) {
                 System.out.println("\n---------------Turno " + contador + "---------------");
                 mostrarUnTurno(t);
                 contador++;

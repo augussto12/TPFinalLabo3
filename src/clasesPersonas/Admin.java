@@ -3,7 +3,7 @@ package clasesPersonas;
 import java.util.List;
 
 public class Admin extends Persona{
-    public Admin(String nombreYapellido, String dni, String contrasenia) {
+    public Admin(String nombreYapellido, long dni, String contrasenia) {
         super(nombreYapellido, dni, contrasenia);
     }
 

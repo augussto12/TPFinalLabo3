@@ -34,12 +34,12 @@ public class LeerArchivoAgenda {
             int idTurno = turnojson.getInt("idTurno");
 
             JSONObject pacientejson = turnojson.getJSONObject("paciente");
-            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getString("dni"), pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
+            Paciente paciente = new Paciente(pacientejson.getString("nombre"), pacientejson.getInt("edad"), pacientejson.getLong("dni"), pacientejson.getLong("telefono"), pacientejson.getString("contrasenia"));
 
             JSONObject medicoJSON = turnojson.getJSONObject("medico");
             String especialidadjson = medicoJSON.getString("especialidad");
             Especialidades especialidad = Especialidades.valueOf(especialidadjson);
-            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getLong("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
 
             Turno turno = new Turno(fecha, medico, paciente, motivo, idTurno);
             turnos.add(turno);

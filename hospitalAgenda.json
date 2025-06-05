@@ -1,21 +1,44 @@
-{"turnos": [{
-    "fecha": "30/12/2025 19:30",
-    "motivo": "chequeo anual",
-    "paciente": {
-        "contrasenia": "Calvarez",
-        "telefono": 2238955213,
-        "nombre": "Candela Alvarez",
-        "edad": 28,
-        "dni": "40.561.999"
+{"turnos": [
+    {
+        "fecha": "30/12/2025 19:30",
+        "motivo": "chequeo anual",
+        "paciente": {
+            "contrasenia": "Calvarez",
+            "telefono": 2238955213,
+            "nombre": "Candela Alvarez",
+            "edad": 28,
+            "dni": "40561999"
+        },
+        "medico": {
+            "contrasenia": "Mdominguez",
+            "id": 42,
+            "telefono": 2236983121,
+            "nombre": "Martin Dominguez",
+            "edad": 27,
+            "especialidad": "NEUROLOGIA",
+            "dni": "41577721"
+        },
+        "idTurno": 747
     },
-    "medico": {
-        "contrasenia": "Mdominguez",
-        "id": 42,
-        "telefono": 2236983121,
-        "nombre": "Martin Dominguez",
-        "edad": 27,
-        "especialidad": "NEUROLOGIA",
-        "dni": "41.577.721"
-    },
-    "idTurno": 747
-}]}
+    {
+        "fecha": "10/08/2025 15:00",
+        "motivo": "Me duele la cabeza",
+        "paciente": {
+            "contrasenia": "Calvarez",
+            "telefono": 2238955213,
+            "nombre": "Candela Alvarez",
+            "edad": 28,
+            "dni": "40561999"
+        },
+        "medico": {
+            "contrasenia": "Mdominguez",
+            "id": 42,
+            "telefono": 2236983121,
+            "nombre": "Martin Dominguez",
+            "edad": 27,
+            "especialidad": "NEUROLOGIA",
+            "dni": "41577721"
+        },
+        "idTurno": 650
+    }
+]}

@@ -1,6 +1,7 @@
 package menu;
 
 import Interfaz.MostrarListado;
+import Validaciones.Validar;
 import clasesManejoTurnos.Agenda;
 import clasesManejoTurnos.Turno;
 import clasesPersonas.*;
@@ -19,7 +20,9 @@ public class MenuPrincipal {
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         Scanner scan = new Scanner(System.in);
+
         int eleccion = 0;
+
         System.out.printf("\n======HOSPITAL========");
         System.out.printf("\n[ 1 ] Si es medico.");
         System.out.printf("\n[ 2 ] Si es un paciente.");
@@ -27,8 +30,7 @@ public class MenuPrincipal {
         System.out.printf("\n[ 4 ] Para registrarse como paciente.");
         System.out.printf("\n[ 0 ] Si desea terminar el programa");
         System.out.printf("\n\nSu eleccion: ");
-        eleccion = scan.nextInt();
-        scan.nextLine();
+        eleccion = Validar.validarSwitch(4);
         switch (eleccion) {
             case 1:
                 System.out.printf("\nIngrese su ID: ");
@@ -58,7 +60,7 @@ public class MenuPrincipal {
                 break;
             case 2:
                 System.out.printf("\ningrese su DNI: ");
-                String dniUsuario = scan.nextLine();
+                long dniUsuario = Validar.validarLong();
 
 
                 Paciente paciente = Paciente.buscarPacientePorDNI(dniUsuario, pacientes);
@@ -76,15 +78,14 @@ public class MenuPrincipal {
                     scan.nextLine();
                     menu();
                 }
-                //chequeo si existe ese user y si la contra es correcta con nombre y dni
                 menuUser(paciente);
                 break;
             case 3:
                 List<Admin> admins = LeerArchivoPersonas.llenarListaAdmin();
                 System.out.printf("\ningrese su usuario: ");
                 String userAdmin = scan.nextLine();
-                Admin admin = Admin.buscarAdminPorUser(userAdmin,admins);
-                if (admin == null){
+                Admin admin = Admin.buscarAdminPorUser(userAdmin, admins);
+                if (admin == null) {
                     System.out.println("Admin no encontrado.");
                     System.out.print("\nPresione Enter para continuar...");
                     scan.nextLine();
@@ -92,7 +93,7 @@ public class MenuPrincipal {
                 }
                 System.out.println("\nIngrese su contrasenia: ");
                 String contraseniaAdmin = scan.nextLine();
-                if (!admin.getContrasenia().equals(contraseniaAdmin)){
+                if (!admin.getContrasenia().equals(contraseniaAdmin)) {
                     System.out.println("Contrasenia incorrecta.");
                     System.out.print("\nPresione Enter para continuar...");
                     scan.nextLine();
@@ -100,7 +101,6 @@ public class MenuPrincipal {
                 }
                 menuAdmin();
                 break;
-
             case 4:
                 pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
                 System.out.print("\nPresione Enter para continuar...");
@@ -123,8 +123,7 @@ public class MenuPrincipal {
         System.out.println("[ 2 ] Reprogramar turno");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
-        opcion = scan.nextInt();
-        scan.nextLine();
+        opcion = Validar.validarSwitch(2);
         switch (opcion) {
             case 1:
                 LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getNombreYapellido());
@@ -145,11 +144,8 @@ public class MenuPrincipal {
             case 0:
                 menu();
                 break;
-
         }
-
     }
-
 
     public static void menuUser(Paciente paciente) throws JSONException {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
@@ -164,10 +160,7 @@ public class MenuPrincipal {
         System.out.println("[ 4 ] Ver mis turnos");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
-        opcion = scan.nextInt();
-        scan.nextLine();
-
-
+        opcion = Validar.validarSwitch(4);
         switch (opcion) {
             case 1:
                 LeerArchivoPersonas.mostrarListaMedicos(medicos);
@@ -201,8 +194,6 @@ public class MenuPrincipal {
                 scan.nextLine();
                 menuUser(paciente);
                 break;
-            case 5:
-                break;
             case 0:
                 menu();
                 break;
@@ -227,9 +218,7 @@ public class MenuPrincipal {
         System.out.println("[ 7 ] Ver turnos");
         System.out.println("[ 0 ] Volver al menú principal");
         System.out.printf("\nSu eleccion: ");
-        opcion = scan.nextInt();
-        scan.nextLine();
-
+        opcion = Validar.validarSwitch(7);
         switch (opcion) {
             case 1:
                 MostrarListado listadoMedicos = new Medico();
@@ -248,7 +237,7 @@ public class MenuPrincipal {
             case 3:
                 LeerArchivoPersonas.mostrarTodosLosMedicos(medicos);
                 System.out.println("\nIngrese el id del medico a eliminar (tambien se van a eliminar sus turnos):");
-                int idAeliminar=Turno.validarEntero();
+                int idAeliminar = Validar.validarEntero();
                 GrabarJSONPersonas.eliminarMedico(idAeliminar);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
@@ -268,10 +257,10 @@ public class MenuPrincipal {
                 menuAdmin();
                 break;
             case 6:
-                MostrarListado listado1=new Paciente();
+                MostrarListado listado1 = new Paciente();
                 listado1.mostrarLista();
                 System.out.println("\nIngrese el dni del paciente a eliminar (tambien se van a eliminar sus turnos):");
-                String dniAeliminar= scan.nextLine();
+                long dniAeliminar = scan.nextLong();
                 GrabarJSONPersonas.eliminarPaciente(dniAeliminar);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
@@ -289,6 +278,7 @@ public class MenuPrincipal {
         }
 
     }
+
 
 
 }

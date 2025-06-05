@@ -1,6 +1,7 @@
 package clasesPersonas;
 
 import Interfaz.MostrarListado;
+import Validaciones.Validar;
 import clasesManejoTurnos.Turno;
 import extras.Especialidades;
 import manejoJSON.LeerArchivoPersonas;
@@ -14,7 +15,7 @@ public class Medico extends Persona implements MostrarListado {
     private int id;
 
 
-    public Medico(String nombreYapellido, int edad, String dni, long telefono, String contrasenia, Especialidades especialidad, int id) {
+    public Medico(String nombreYapellido, int edad, long dni, long telefono, String contrasenia, Especialidades especialidad, int id) {
         super(nombreYapellido, edad, dni, telefono, contrasenia);
         this.especialidad = especialidad;
         this.id = id;
@@ -40,10 +41,10 @@ public class Medico extends Persona implements MostrarListado {
         this.id = id;
     }
 
-    public static Medico buscarMedicoPorDNI(String dni, List<Medico> medicos) {
+    public static Medico buscarMedicoPorDNI(long dni, List<Medico> medicos) {
         Medico medico = null;
         for (Medico m : medicos) {
-            if (Objects.equals(m.getDni(), dni)) {
+            if (m.getDni() == dni) {
                 medico = m;
             }
         }
@@ -55,12 +56,12 @@ public class Medico extends Persona implements MostrarListado {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese su nombre y apellido: ");
-        String nombre = scan.nextLine();
+        String nombre = Validar.validarString();
 
-        String dni;
+        long dni;
         do {
             System.out.println("Ingrese su DNI (funciona como nombre de usuario): ");
-            dni = scan.nextLine();
+            dni = Validar.validarLong();
 
             if (buscarMedicoPorDNI(dni, medicos) != null) {
                 System.out.println("El DNI " + dni + " ya está registrado. Por favor, ingrese uno diferente.");
@@ -82,21 +83,18 @@ public class Medico extends Persona implements MostrarListado {
         } while (idRepetido);
 
         System.out.println("Ingrese su contrasenia: ");
-        String contrasenia = scan.nextLine();
+        String contrasenia = Validar.validarString();
         System.out.println("Ingrese su edad: ");
-        int edad = scan.nextInt();
-        scan.nextLine();
+        int edad = Validar.validarEntero();
         System.out.println("Ingrese su telefono: ");
-        long telefono = scan.nextLong();
-        scan.nextLine();
+        long telefono = Validar.validarLong();
         Especialidades especialidad = null;
         System.out.printf("\n[ 1 ] Cardiologia");
         System.out.printf("\n[ 2 ] Pediatria");
         System.out.printf("\n[ 3 ] Clinica");
         System.out.printf("\n[ 4 ] Neurologia");
         System.out.printf("\nsu eleccion:");
-        int eleccion = scan.nextInt();
-        scan.nextLine();
+        int eleccion = Validar.validarSwitch(4);
         switch (eleccion) {
             case 1:
                 especialidad = Especialidades.CARDIOLOGIA;
@@ -111,36 +109,23 @@ public class Medico extends Persona implements MostrarListado {
                 especialidad = Especialidades.NEUROLOGIA;
                 break;
         }
-
         Medico medicoNuevo = new Medico(nombre, edad, dni, telefono, contrasenia, especialidad, idMedico);
         return medicoNuevo;
-
     }
 
     @Override
     public void mostrarLista() {
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
-        int contador = 0;
-        for (Medico m : medicos) {
-            contador++;
-            System.out.printf("\n------medico " + contador + "--------");
-            System.out.printf("\nNombre: " + m.getNombreYapellido());
-            System.out.printf("\nEdad: " + m.getEdad());
-            System.out.printf("\nTelefono: " + m.getTelefono());
-            System.out.printf("\nDni: " + m.getDni());
-            System.out.printf("\nEspecialidad: " + m.getEspecialidad());
-            System.out.printf("\nId: " + m.getId());
-        }
+        LeerArchivoPersonas.mostrarListaMedicos(medicos);
     }
 
-    public static Medico buscarMedicoPorId(int id, List<Medico>medicos)  {
+    public static Medico buscarMedicoPorId(int id, List<Medico> medicos) {
         Medico medico = null;
-        for (Medico m : medicos){
-            if (m.getId() == id){
+        for (Medico m : medicos) {
+            if (m.getId() == id) {
                 medico = m;
             }
         }
         return medico;
     }
-
 }

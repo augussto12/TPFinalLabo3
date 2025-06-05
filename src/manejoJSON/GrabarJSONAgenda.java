@@ -81,12 +81,12 @@ public class GrabarJSONAgenda {
             int idTurno = turnoJSON.getInt("idTurno");
 
             JSONObject pacienteJSON = turnoJSON.getJSONObject("paciente");
-            Paciente paciente = new Paciente(pacienteJSON.getString("nombre"), pacienteJSON.getInt("edad"), pacienteJSON.getString("dni"), pacienteJSON.getLong("telefono"), pacienteJSON.getString("contrasenia"));
+            Paciente paciente = new Paciente(pacienteJSON.getString("nombre"), pacienteJSON.getInt("edad"), pacienteJSON.getLong("dni"), pacienteJSON.getLong("telefono"), pacienteJSON.getString("contrasenia"));
 
             JSONObject medicoJSON = turnoJSON.getJSONObject("medico");
             String especialidadJSON = medicoJSON.getString("especialidad");
             Especialidades especialidad = Especialidades.valueOf(especialidadJSON);
-            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getString("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
+            Medico medico = new Medico(medicoJSON.getString("nombre"), medicoJSON.getInt("edad"), medicoJSON.getLong("dni"), medicoJSON.getLong("telefono"), medicoJSON.getString("contrasenia"), especialidad, medicoJSON.getInt("id"));
 
             Turno turnoNuevo = new Turno(fecha, medico, paciente, motivo, idTurno);
             turnos.getAgenda().add(turnoNuevo);
@@ -103,11 +103,11 @@ public class GrabarJSONAgenda {
         llenarAgenda(agenda);
     }
 
-    public static void eliminarTurnosDelPaciente(String dniPaciente) throws JSONException {
+    public static void eliminarTurnosDelPaciente(long dniPaciente) throws JSONException {
         Agenda agenda = LeerArchivoAgenda.LeerArchivo();
         int tiene = 0;
         for (Turno t : agenda.getAgenda()) {
-            if (t.getCliente().getDni().equals(dniPaciente)) {
+            if (t.getCliente().getDni() == (dniPaciente)) {
                 Agenda.eliminarUnTurnoMio(t.getIdTurno(), agenda);
                 tiene++;
             }

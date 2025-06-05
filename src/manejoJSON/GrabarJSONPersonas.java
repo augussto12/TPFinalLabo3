@@ -158,7 +158,7 @@ public class GrabarJSONPersonas {
         grabarPersonas(personas);
     }
 
-    public static void eliminarPaciente(String dniAeliminar) throws JSONException {
+    public static void eliminarPaciente(long dniAeliminar) throws JSONException {
         List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
         Iterator<Persona> iterator = personas.iterator();
         boolean eliminado = false;
@@ -169,7 +169,7 @@ public class GrabarJSONPersonas {
             if (persona instanceof Paciente) {
                 Paciente paciente = (Paciente) persona;
 
-                if (paciente.getDni().equals(dniAeliminar)) {
+                if (paciente.getDni() == (dniAeliminar)) {
                     iterator.remove();
                     eliminado = true;
                     System.out.println("\nSe eliminó con éxito al paciente con dni: " + dniAeliminar);

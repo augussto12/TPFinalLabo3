@@ -1,5 +1,6 @@
 package manejoJSON;
 
+import Validaciones.Validar;
 import clasesPersonas.Admin;
 import clasesPersonas.Medico;
 import clasesPersonas.Paciente;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 public class LeerArchivoPersonas {
 
-    public static List<Persona> llenarPersonas (){
+    public static List<Persona> llenarPersonas() {
 
         List<Persona> listaPersonas = new ArrayList<>();
         try {
@@ -30,7 +31,7 @@ public class LeerArchivoPersonas {
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
-                    String dni = personajson.getString("dni");
+                    long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
                     String especialidadjson = personajson.getString("especialidad");
 
@@ -43,7 +44,7 @@ public class LeerArchivoPersonas {
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
-                    String dni = personajson.getString("dni");
+                    long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
 
                     Persona p = new Paciente(nombre, edad, dni, telefono, contrasenia);
@@ -51,10 +52,10 @@ public class LeerArchivoPersonas {
                 } else if (!personajson.has("telefono")) {
 
                     String nombre = personajson.getString("nombre");
-                    String dni = personajson.getString("dni");
+                    long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
 
-                    Persona a = new Admin(nombre,dni,contrasenia);
+                    Persona a = new Admin(nombre, dni, contrasenia);
                     listaPersonas.add(a);
                 }
 
@@ -63,7 +64,7 @@ public class LeerArchivoPersonas {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-       return listaPersonas;
+        return listaPersonas;
     }
 
 
@@ -82,7 +83,7 @@ public class LeerArchivoPersonas {
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
-                    String dni = personajson.getString("dni");
+                    long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
                     String especialidadjson = personajson.getString("especialidad");
 
@@ -116,7 +117,7 @@ public class LeerArchivoPersonas {
                     long telefono = personajson.getLong("telefono");
                     String nombre = personajson.getString("nombre");
                     int edad = personajson.getInt("edad");
-                    String dni = personajson.getString("dni");
+                    Long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
 
                     Paciente p = new Paciente(nombre, edad, dni, telefono, contrasenia);
@@ -129,7 +130,8 @@ public class LeerArchivoPersonas {
         }
         return listaPacientes;
     }
-    public static List<Admin> llenarListaAdmin (){
+
+    public static List<Admin> llenarListaAdmin() {
 
         List<Admin> listaAdmin = new ArrayList<>();
         try {
@@ -141,10 +143,10 @@ public class LeerArchivoPersonas {
                 if (!personajson.has("telefono")) {
 
                     String nombre = personajson.getString("nombre");
-                    String dni = personajson.getString("dni");
+                    Long dni = personajson.getLong("dni");
                     String contrasenia = personajson.getString("contrasenia");
 
-                    Admin a = new Admin(nombre,dni,contrasenia);
+                    Admin a = new Admin(nombre, dni, contrasenia);
                     admins.add(a);
                 }
                 listaAdmin = admins;
@@ -162,8 +164,7 @@ public class LeerArchivoPersonas {
         System.out.println("[ 1 ] Ver medicos por especialidad");
         System.out.println("[ 2 ] Ver todos los medicos");
         System.out.printf("\nSu eleccion: ");
-        opcion = scan.nextInt();
-        scan.nextLine();
+        opcion = Validar.validarSwitch(2);
         switch (opcion) {
             case 1:
                 mostrarPorEspecialidad(medicos);
@@ -183,33 +184,23 @@ public class LeerArchivoPersonas {
         System.out.println("[ 2 ] Pediatras");
         System.out.println("[ 3 ] Clinicos");
         System.out.println("[ 4 ] Neurologos");
+        System.out.printf("\nSu eleccion: ");
+        int opcion = Validar.validarSwitch(4);
 
-        boolean opcionValida = false;
-        while (!opcionValida) {
-            System.out.printf("\nSu eleccion: ");
-            int opcion = scan.nextInt();
-            scan.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    especialidad = Especialidades.CARDIOLOGIA;
-                    opcionValida = true;
-                    break;
-                case 2:
-                    especialidad = Especialidades.PEDIATRIA;
-                    opcionValida = true;
-                    break;
-                case 3:
-                    especialidad = Especialidades.CLINICA;
-                    opcionValida = true;
-                    break;
-                case 4:
-                    especialidad = Especialidades.NEUROLOGIA;
-                    opcionValida = true;
-                    break;
-                default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
-            }
+        switch (opcion) {
+            case 1:
+                especialidad = Especialidades.CARDIOLOGIA;
+                break;
+            case 2:
+                especialidad = Especialidades.PEDIATRIA;
+                break;
+            case 3:
+                especialidad = Especialidades.CLINICA;
+                break;
+            case 4:
+                especialidad = Especialidades.NEUROLOGIA;
+                break;
+            default:
         }
 
 
@@ -240,8 +231,6 @@ public class LeerArchivoPersonas {
         System.out.printf("\nEspecialidad: " + medico.getEspecialidad());
         System.out.printf("\nId: " + medico.getId());
     }
-
-
 
 
 }
