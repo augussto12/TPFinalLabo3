@@ -1,9 +1,11 @@
 package clasesPersonas;
 
+import Exceptions.IngresoInvalidoException;
 import Interfaz.MostrarListado;
 import Validaciones.Validar;
 import clasesManejoTurnos.Turno;
 import extras.Especialidades;
+import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoPersonas;
 import menu.MenuPrincipal;
 import org.json.JSONException;
@@ -229,5 +231,19 @@ public class Medico extends Persona implements MostrarListado {
         System.out.printf("\nTelefono: " + medico.getTelefono());
         System.out.printf("\nEspecialidad: " + medico.getEspecialidad());
         System.out.printf("\nId: " + medico.getId());
+    }
+
+    public static void registrarMedico(List<Medico> medicos) throws JSONException {
+        Medico medico = Medico.pedirDatosParaRegistrarMedico(medicos);
+        agregarUnMedicoALaLista(medico, medicos);
+        GrabarJSONPersonas.agregarMedicoAlJSON(medico);
+        System.out.println("\nSe agrego correctamente.");
+    }
+
+    public static void agregarUnMedicoALaLista(Medico nuevoMedico, List<Medico> medicos) throws JSONException {
+        if (nuevoMedico == null) {
+            throw new IngresoInvalidoException("El medico no puede ser nulo");
+        }
+        medicos.add(nuevoMedico);
     }
 }

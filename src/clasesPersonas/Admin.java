@@ -1,9 +1,14 @@
 package clasesPersonas;
 
+import Interfaz.MostrarListado;
+import Validaciones.Validar;
+import manejoJSON.GrabarJSONAgenda;
+import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoPersonas;
 import menu.MenuPrincipal;
 import org.json.JSONException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,4 +52,76 @@ public class Admin extends Persona {
         MenuPrincipal.menuAdmin();
     }
 
+
+    public static void eliminarMedico(int idAeliminar) throws JSONException {
+        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
+
+        Iterator<Persona> iterator = personas.iterator();
+        boolean eliminado = false;
+
+        while (iterator.hasNext()) {
+            Persona persona = iterator.next();
+
+            if (persona instanceof Medico) {
+                Medico medico = (Medico) persona;
+
+                if (medico.getId() == idAeliminar) {
+                    iterator.remove();
+                    eliminado = true;
+                    System.out.println("\nSe eliminó con éxito al médico con ID: " + idAeliminar);
+                    GrabarJSONAgenda.eliminarTurnosDelMedico(idAeliminar);
+                    break;
+                }
+            }
+        }
+
+        if (!eliminado) {
+            System.out.println("\nNo se encontró un médico con ID: " + idAeliminar);
+        }
+
+        GrabarJSONPersonas.grabarPersonas(personas);
+    }
+
+    public static void manejoEliminarMedico(List<Medico> medicos) throws JSONException {
+        Medico.mostrarTodosLosMedicos(medicos);
+        System.out.println("\nIngrese el id del medico a eliminar (tambien se van a eliminar sus turnos):");
+        int idAeliminar = Validar.validarEntero();
+        eliminarMedico(idAeliminar);
+    }
+
+    public static void eliminarPaciente(long dniAeliminar) throws JSONException {
+        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
+        Iterator<Persona> iterator = personas.iterator();
+        boolean eliminado = false;
+
+        while (iterator.hasNext()) {
+            Persona persona = iterator.next();
+
+            if (persona instanceof Paciente) {
+                Paciente paciente = (Paciente) persona;
+
+                if (paciente.getDni() == (dniAeliminar)) {
+                    iterator.remove();
+                    eliminado = true;
+                    System.out.println("\nSe eliminó con éxito al paciente con DNI: " + dniAeliminar);
+                    GrabarJSONAgenda.eliminarTurnosDelPaciente(dniAeliminar);
+                    break;
+                }
+            }
+        }
+
+        if (!eliminado) {
+            System.out.println("\nNo se encontró un paciente con DNI: " + dniAeliminar);
+        }
+
+        GrabarJSONPersonas.grabarPersonas(personas);
+    }
+
+    public static void manejarEliminarPaciente(Scanner scan) throws JSONException {
+        MostrarListado listado1 = new Paciente();
+        listado1.mostrarLista();
+        System.out.println("\nIngrese el dni del paciente a eliminar (tambien se van a eliminar sus turnos):");
+        long dniAeliminar = scan.nextLong();
+        eliminarPaciente(dniAeliminar);
+    }
 }

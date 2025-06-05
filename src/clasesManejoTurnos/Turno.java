@@ -106,9 +106,6 @@ public class Turno {
         return fecha;
     }
 
-
-
-
     public static boolean fechaDisponibleMedico(LocalDateTime fecha, List<Turno> turnos, int id) {
         for (Turno t : turnos) {
             if (t.getMedico().getId() == id) {

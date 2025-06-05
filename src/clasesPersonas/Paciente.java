@@ -1,13 +1,17 @@
 package clasesPersonas;
 
+import Exceptions.IngresoInvalidoException;
 import Interfaz.MostrarListado;
 import Validaciones.Validar;
 import clasesManejoTurnos.Agenda;
+import manejoJSON.GrabarJSONAgenda;
+import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.JSONUtiles;
 import manejoJSON.LeerArchivoPersonas;
 import menu.MenuPrincipal;
 import org.json.JSONException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -110,13 +114,28 @@ public class Paciente extends Persona implements MostrarListado {
         return paciente;
     }
 
-    public static void eliminarTurno(Paciente paciente, List<Paciente> pacientes,Scanner scan,Agenda agenda) throws JSONException {
-        Agenda.mostrarTodosMisTurnos(paciente, pacientes);
+    public static void eliminarTurno(Paciente paciente, List<Paciente> pacientes, Scanner scan, Agenda agenda) throws JSONException {
+        Agenda.mostrarTodosMisTurnos(paciente, pacientes, agenda);
         System.out.println("Id del turno que desea eliminar: ");
         int idAeliminar = scan.nextInt();
         Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
-        System.out.printf("\nTurnos actualizados: ");
-        Agenda.mostrarTodosMisTurnos(paciente, pacientes);
     }
+
+    public static void agregarUnPacienteALaLista(Paciente nuevoPaciente, List<Paciente> pacientes) throws JSONException {
+        if (nuevoPaciente == null) {
+            throw new IngresoInvalidoException("El paciente no puede ser nulo");
+        }
+        pacientes.add(nuevoPaciente);
+    }
+
+    public static void registrarPaciente(List<Paciente> pacientes) throws JSONException {
+        Paciente paciente = Paciente.pedirDatosDeRegistroAlPaciente(pacientes);
+        Paciente.agregarUnPacienteALaLista(paciente, pacientes);
+        GrabarJSONPersonas.agregarPacienteAlJSON(paciente);
+        System.out.println("\nSe agrego correctamente.");
+    }
+
+
+
 
 }

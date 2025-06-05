@@ -18,15 +18,6 @@
         "dni": 35235712
     },
     {
-        "contrasenia": "Mdominguez",
-        "id": 42,
-        "telefono": 2236983121,
-        "nombre": "Martin Dominguez",
-        "edad": 27,
-        "especialidad": "NEUROLOGIA",
-        "dni": 41577721
-    },
-    {
         "contrasenia": "Lhernandez",
         "id": 532,
         "telefono": 2235789312,
@@ -50,13 +41,6 @@
         "dni": 45922938
     },
     {
-        "contrasenia": "Lhernandez",
-        "telefono": 2239876543,
-        "nombre": "Luis hernandez",
-        "edad": 35,
-        "dni": 33332654
-    },
-    {
         "contrasenia": "Msanchez",
         "telefono": 2236819341,
         "nombre": "Miranda Sanchez",
@@ -78,5 +62,21 @@
         "edad": 48,
         "especialidad": "CARDIOLOGIA",
         "dni": 38933213
+    },
+    {
+        "contrasenia": "Jperez",
+        "id": 956,
+        "telefono": 2236784529,
+        "nombre": "Jose perez",
+        "edad": 41,
+        "especialidad": "PEDIATRIA",
+        "dni": 29334218
+    },
+    {
+        "contrasenia": "Mlopez",
+        "telefono": 2237593812,
+        "nombre": "Miguel Lopez",
+        "edad": 49,
+        "dni": 39189584
     }
 ]

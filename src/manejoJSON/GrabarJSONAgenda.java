@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GrabarJSONAgenda {
@@ -105,29 +106,40 @@ public class GrabarJSONAgenda {
 
     public static void eliminarTurnosDelPaciente(long dniPaciente) throws JSONException {
         Agenda agenda = LeerArchivoAgenda.LeerArchivo();
-        int tiene = 0;
-        for (Turno t : agenda.getAgenda()) {
+        int cantidad = 0;
+        Iterator<Turno> iterator = agenda.getAgenda().iterator();
+        while (iterator.hasNext()) {
+            Turno t = iterator.next();
             if (t.getCliente().getDni() == (dniPaciente)) {
-                Agenda.eliminarUnTurnoMio(t.getIdTurno(), agenda);
-                tiene++;
+                iterator.remove();
+                cantidad++;
             }
         }
-        if(tiene == 0){
+        if (cantidad == 0) {
             System.out.println("El paciente no tiene turnos.");
+        } else {
+            System.out.println("Se eliminaron " + cantidad + " turnos.");
         }
     }
 
     public static void eliminarTurnosDelMedico(int idMedico) throws JSONException {
         Agenda agenda = LeerArchivoAgenda.LeerArchivo();
-        int tiene = 0;
-        for (Turno t : agenda.getAgenda()) {
-            if (t.getMedico().getId() == idMedico) {
-                Agenda.eliminarUnTurnoMio(t.getIdTurno(), agenda);
-                tiene++;
+
+        int cantidad = 0;
+        Iterator<Turno> iterator = agenda.getAgenda().iterator();
+        while (iterator.hasNext()) {
+            Turno t = iterator.next();
+            if (idMedico == t.getMedico().getId()) {
+                iterator.remove();
+                cantidad++;
             }
         }
-        if(tiene == 0){
-            System.out.println("El medico no tiene turnos para eliminar.");
+        GrabarJSONAgenda.llenarAgenda(agenda);
+
+        if (cantidad == 0) {
+            System.out.println("El medico no tiene turnos.");
+        } else {
+            System.out.println("Se eliminaron " + cantidad + " turnos.");
         }
     }
 }

@@ -54,14 +54,6 @@ public class GrabarJSONPersonas {
         JSONUtiles.grabar(archivo, "hospitalPersonas.json");
     }
 
-    public static List<Paciente> agregarUnPaciente(Paciente nuevoPaciente) throws JSONException {
-        if (nuevoPaciente == null) {
-            throw new IngresoInvalidoException("El paciente no puede ser nulo");
-        }
-        List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
-        pacientes.add(nuevoPaciente);
-        return pacientes;
-    }
 
     public static void agregarPacienteAlJSON(Paciente paciente) {
         JSONObject personaJSON = new JSONObject();
@@ -83,22 +75,6 @@ public class GrabarJSONPersonas {
         }
     }
 
-    public static List<Paciente> registrarPaciente(List<Paciente> pacientes) throws JSONException {
-        Paciente paciente = Paciente.pedirDatosDeRegistroAlPaciente(pacientes);
-        pacientes = agregarUnPaciente(paciente);
-        agregarPacienteAlJSON(paciente);
-        return pacientes;
-    }
-
-
-    public static List<Medico> agregarUnMedico(Medico nuevoMedico) throws JSONException {
-        if (nuevoMedico == null) {
-            throw new IngresoInvalidoException("El medico no puede ser nulo");
-        }
-        List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
-        medicos.add(nuevoMedico);
-        return medicos;
-    }
 
     public static void agregarMedicoAlJSON(Medico medico) {
         JSONObject personaJSON = new JSONObject();
@@ -122,70 +98,6 @@ public class GrabarJSONPersonas {
         }
     }
 
-    public static List<Medico> registrarMedico(List<Medico> medicos) throws JSONException {
-        Medico medico = Medico.pedirDatosParaRegistrarMedico(medicos);
-        medicos = agregarUnMedico(medico);
-        agregarMedicoAlJSON(medico);
-        System.out.println("\nSe agrego correctamente.");
-        return medicos;
-    }
-
-    public static void eliminarMedico(int idAeliminar) throws JSONException {
-        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
-
-        Iterator<Persona> iterator = personas.iterator();
-        boolean eliminado = false;
-
-        while (iterator.hasNext()) {
-            Persona persona = iterator.next();
-
-            if (persona instanceof Medico) {
-                Medico medico = (Medico) persona;
-
-                if (medico.getId() == idAeliminar) {
-                    iterator.remove();
-                    eliminado = true;
-                    System.out.println("\nSe eliminó con éxito al médico con ID: " + idAeliminar);
-                    GrabarJSONAgenda.eliminarTurnosDelMedico(idAeliminar);
-                    break;
-                }
-            }
-        }
-
-        if (!eliminado) {
-            System.out.println("\nNo se encontró un médico con ID: " + idAeliminar);
-        }
-
-        grabarPersonas(personas);
-    }
-
-    public static void eliminarPaciente(long dniAeliminar) throws JSONException {
-        List<Persona> personas = LeerArchivoPersonas.llenarPersonas();
-        Iterator<Persona> iterator = personas.iterator();
-        boolean eliminado = false;
-
-        while (iterator.hasNext()) {
-            Persona persona = iterator.next();
-
-            if (persona instanceof Paciente) {
-                Paciente paciente = (Paciente) persona;
-
-                if (paciente.getDni() == (dniAeliminar)) {
-                    iterator.remove();
-                    eliminado = true;
-                    System.out.println("\nSe eliminó con éxito al paciente con dni: " + dniAeliminar);
-                    GrabarJSONAgenda.eliminarTurnosDelPaciente(dniAeliminar);
-                    break;
-                }
-            }
-        }
-
-        if (!eliminado) {
-            System.out.println("\nNo se encontró un médico con ID: " + dniAeliminar);
-        }
-
-        grabarPersonas(personas);
-    }
 
 }
 

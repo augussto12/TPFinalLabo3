@@ -1,44 +1,44 @@
 {"turnos": [
     {
-        "fecha": "30/12/2025 19:30",
-        "motivo": "chequeo anual",
+        "fecha": "15/09/2025 13:00",
+        "motivo": "me duele la chota",
         "paciente": {
-            "contrasenia": "Calvarez",
-            "telefono": 2238955213,
-            "nombre": "Candela Alvarez",
-            "edad": 28,
-            "dni": "40561999"
+            "contrasenia": "Lhernandez",
+            "telefono": 2239876543,
+            "nombre": "Luis hernandez",
+            "edad": 35,
+            "dni": 33332654
         },
         "medico": {
-            "contrasenia": "Mdominguez",
-            "id": 42,
-            "telefono": 2236983121,
-            "nombre": "Martin Dominguez",
-            "edad": 27,
-            "especialidad": "NEUROLOGIA",
-            "dni": "41577721"
+            "contrasenia": "Mpereira",
+            "id": 23,
+            "telefono": 2235982341,
+            "nombre": "Mateo Pereira",
+            "edad": 50,
+            "especialidad": "CLINICA",
+            "dni": 28566129
         },
-        "idTurno": 747
+        "idTurno": 52
     },
     {
-        "fecha": "10/08/2025 15:00",
-        "motivo": "Me duele la cabeza",
+        "fecha": "01/09/2025 19:30",
+        "motivo": "al pola le duele la cola",
         "paciente": {
-            "contrasenia": "Calvarez",
-            "telefono": 2238955213,
-            "nombre": "Candela Alvarez",
-            "edad": 28,
-            "dni": "40561999"
+            "contrasenia": "Lhernandez",
+            "telefono": 2239876543,
+            "nombre": "Luis hernandez",
+            "edad": 35,
+            "dni": 33332654
         },
         "medico": {
-            "contrasenia": "Mdominguez",
-            "id": 42,
-            "telefono": 2236983121,
-            "nombre": "Martin Dominguez",
-            "edad": 27,
-            "especialidad": "NEUROLOGIA",
-            "dni": "41577721"
+            "contrasenia": "Mpereira",
+            "id": 23,
+            "telefono": 2235982341,
+            "nombre": "Mateo Pereira",
+            "edad": 50,
+            "especialidad": "CLINICA",
+            "dni": 28566129
         },
-        "idTurno": 650
+        "idTurno": 523
     }
 ]}

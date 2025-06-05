@@ -105,7 +105,6 @@ public class Agenda {
     }
 
 
-
     public static void mostrarTurnosPropios(Paciente paciente, List<Turno> listaTurnos) {
         int contador = 1;
         for (Turno t : listaTurnos) {
@@ -118,24 +117,27 @@ public class Agenda {
 
     }
 
-    public static void mostrarTodosMisTurnos(Paciente paciente, List<Paciente> pacientes) throws JSONException {
-        Agenda turnos = LeerArchivoAgenda.LeerArchivo();
-        List<Turno> listadoTurnos = turnos.getAgenda();
+    public static void mostrarTodosMisTurnos(Paciente paciente, List<Paciente> pacientes, Agenda agenda) throws JSONException {
+        List<Turno> listadoTurnos = agenda.getAgenda();
         Paciente pacienteEncontrado = Paciente.encontrarPaciente(paciente.getDni(), pacientes);
         Agenda.mostrarTurnosPropios(pacienteEncontrado, listadoTurnos);
     }
 
     public static void eliminarUnTurnoMio(int idAeliminar, Agenda agenda) throws JSONException {
-        agenda = LeerArchivoAgenda.LeerArchivo();
+        boolean exito = false;
         Iterator<Turno> iterator = agenda.getAgenda().iterator();
         while (iterator.hasNext()) {
             Turno t = iterator.next();
             if (idAeliminar == t.getIdTurno()) {
                 iterator.remove();
                 System.out.println("\nSe eliminó con éxito el turno");
+                GrabarJSONAgenda.llenarAgenda(agenda);
+                exito = true;
             }
         }
-        GrabarJSONAgenda.llenarAgenda(agenda);
+        if (!exito) {
+            System.out.println("No hay ningun turno con ese ID.");
+        }
     }
 
     public static void mostrarTodosLosTurnos() throws JSONException {

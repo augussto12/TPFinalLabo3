@@ -49,7 +49,7 @@ public class MenuPrincipal {
                 Admin.iniciarSesionAdmin(administrtadores);
                 break;
             case 4:
-                pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
+                Paciente.registrarPaciente(pacientes);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menu();
@@ -122,7 +122,7 @@ public class MenuPrincipal {
                 menuUser(paciente);
                 break;
             case 4:
-                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
+                Agenda.mostrarTodosMisTurnos(paciente, pacientes,agenda);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuUser(paciente);
@@ -161,16 +161,13 @@ public class MenuPrincipal {
                 menuAdmin();
                 break;
             case 2:
-                medicos = GrabarJSONPersonas.registrarMedico(medicos);
+                Medico.registrarMedico(medicos);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
                 break;
             case 3:
-                Medico.mostrarTodosLosMedicos(medicos);
-                System.out.println("\nIngrese el id del medico a eliminar (tambien se van a eliminar sus turnos):");
-                int idAeliminar = Validar.validarEntero();
-                GrabarJSONPersonas.eliminarMedico(idAeliminar);
+                Admin.manejoEliminarMedico(medicos);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
@@ -183,17 +180,13 @@ public class MenuPrincipal {
                 menuAdmin();
                 break;
             case 5:
-                pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
+                Paciente.registrarPaciente(pacientes);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
                 break;
             case 6:
-                MostrarListado listado1 = new Paciente();
-                listado1.mostrarLista();
-                System.out.println("\nIngrese el dni del paciente a eliminar (tambien se van a eliminar sus turnos):");
-                long dniAeliminar = scan.nextLong();
-                GrabarJSONPersonas.eliminarPaciente(dniAeliminar);
+                Admin.manejarEliminarPaciente(scan);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
@@ -208,8 +201,5 @@ public class MenuPrincipal {
                 menu();
                 break;
         }
-
     }
-
-
 }
