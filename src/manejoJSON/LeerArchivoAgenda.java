@@ -51,12 +51,18 @@ public class LeerArchivoAgenda {
         return agenda;
     }
 
-    public static void mostrarTurnosDeUnMedico(List<Turno> turnos, String medico) {
+    public static boolean mostrarTurnosDeUnMedico(List<Turno> turnos, int idMedico) {
+        boolean hay = false;
         for (Turno a : turnos) {
-            if (a.getMedico().getNombreYapellido().equalsIgnoreCase(medico)) {
+            if (a.getMedico().getId() == idMedico) {
                 Agenda.mostrarUnTurno(a);
+                hay = true;
             }
         }
+        if (!hay) {
+            System.out.println("No tiene ningun turno.");
+        }
+        return hay;
     }
 
     public static List<Turno> reprogramarTurno(List<Turno> turnos, int idAreprogramar, int idMedico) {
@@ -70,6 +76,16 @@ public class LeerArchivoAgenda {
             }
         }
         return turnos;
+    }
+
+    public static List<Turno> manejoReprogramacion(Medico medico, Scanner scan, Agenda agenda) throws JSONException {
+        if (mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getId())) {
+            System.out.println("\nIngrese el id del turno a reprogramar: ");
+            int idDeTurnoAreprogramar = scan.nextInt();
+            agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(), idDeTurnoAreprogramar, medico.getId()));
+            GrabarJSONAgenda.llenarAgenda(agenda);
+        }
+        return agenda.getAgenda();
     }
 
 }

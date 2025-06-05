@@ -2,8 +2,11 @@ package clasesPersonas;
 
 import Interfaz.MostrarListado;
 import Validaciones.Validar;
+import clasesManejoTurnos.Agenda;
 import manejoJSON.JSONUtiles;
 import manejoJSON.LeerArchivoPersonas;
+import menu.MenuPrincipal;
+import org.json.JSONException;
 
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +62,16 @@ public class Paciente extends Persona implements MostrarListado {
 
     }
 
+    public static Paciente encontrarPaciente(long dni, List<Paciente> pacientes) {
+        Paciente pacienteEncontrado = null;
+        for (Paciente p : pacientes) {
+            if (dni == p.getDni()) {
+                pacienteEncontrado = p;
+            }
+        }
+        return pacienteEncontrado;
+    }
+
     @Override
     public void mostrarLista() {
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
@@ -74,5 +87,36 @@ public class Paciente extends Persona implements MostrarListado {
         }
     }
 
+    public static Paciente iniciarSesionPaciente(List<Paciente> pacientes) throws JSONException {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.printf("\ningrese su DNI: ");
+        long dniUsuario = Validar.validarLong();
+        Paciente paciente = Paciente.buscarPacientePorDNI(dniUsuario, pacientes);
+        if (paciente == null) {
+            System.out.println("Paciente no encontrado.");
+            System.out.print("\nPresione Enter para continuar...");
+            scan.nextLine();
+            MenuPrincipal.menu();
+        }
+        System.out.printf("\nIngrese su contrasenia: ");
+        String contrasenia = scan.nextLine();
+        if (!paciente.getContrasenia().equals(contrasenia)) {
+            System.out.println("Contrasenia incorrecta.");
+            System.out.print("\nPresione Enter para continuar...");
+            scan.nextLine();
+            MenuPrincipal.menu();
+        }
+        return paciente;
+    }
+
+    public static void eliminarTurno(Paciente paciente, List<Paciente> pacientes,Scanner scan,Agenda agenda) throws JSONException {
+        Agenda.mostrarTodosMisTurnos(paciente, pacientes);
+        System.out.println("Id del turno que desea eliminar: ");
+        int idAeliminar = scan.nextInt();
+        Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
+        System.out.printf("\nTurnos actualizados: ");
+        Agenda.mostrarTodosMisTurnos(paciente, pacientes);
+    }
 
 }

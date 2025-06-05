@@ -127,7 +127,7 @@ public class GrabarJSONAgenda {
             }
         }
         if(tiene == 0){
-            System.out.println("El medico no tiene turnos.");
+            System.out.println("El medico no tiene turnos para eliminar.");
         }
     }
 }

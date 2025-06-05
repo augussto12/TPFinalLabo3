@@ -157,80 +157,9 @@ public class LeerArchivoPersonas {
         return listaAdmin;
     }
 
-    public static void mostrarListaMedicos(List<Medico> medicos) {
-        int contador = 0;
-        Scanner scan = new Scanner(System.in);
-        int opcion = 0;
-        System.out.println("[ 1 ] Ver medicos por especialidad");
-        System.out.println("[ 2 ] Ver todos los medicos");
-        System.out.printf("\nSu eleccion: ");
-        opcion = Validar.validarSwitch(2);
-        switch (opcion) {
-            case 1:
-                mostrarPorEspecialidad(medicos);
-                break;
-            case 2:
-                mostrarTodosLosMedicos(medicos);
-                break;
-        }
-
-    }
-
-    public static void mostrarPorEspecialidad(List<Medico> medicos) {
-        Scanner scan = new Scanner(System.in);
-        int contador = 0;
-        Especialidades especialidad = null;
-        System.out.println("[ 1 ] Cardiologos");
-        System.out.println("[ 2 ] Pediatras");
-        System.out.println("[ 3 ] Clinicos");
-        System.out.println("[ 4 ] Neurologos");
-        System.out.printf("\nSu eleccion: ");
-        int opcion = Validar.validarSwitch(4);
-
-        switch (opcion) {
-            case 1:
-                especialidad = Especialidades.CARDIOLOGIA;
-                break;
-            case 2:
-                especialidad = Especialidades.PEDIATRIA;
-                break;
-            case 3:
-                especialidad = Especialidades.CLINICA;
-                break;
-            case 4:
-                especialidad = Especialidades.NEUROLOGIA;
-                break;
-            default:
-        }
 
 
-        for (Medico medico : medicos) {
-            if (medico.getEspecialidad() == especialidad) {
-                contador++;
-                mostrarUnMedico(medico, contador);
-            }
-        }
-    }
 
-    public static void mostrarTodosLosMedicos(List<Medico> medicos) {
-        int contador = 0;
-
-        for (Medico m : medicos) {
-            contador++;
-            mostrarUnMedico(m, contador);
-        }
-    }
-
-
-    public static void mostrarUnMedico(Medico medico, int contador) {
-        System.out.printf("\n------medico " + contador + "--------");
-        System.out.printf("\nNombre: " + medico.getNombreYapellido());
-        System.out.printf("\nEdad: " + medico.getEdad());
-        System.out.printf("\nTelefono: " + medico.getTelefono());
-        //System.out.printf("\nDni: " + medico.getNombreYapellido());
-        System.out.printf("\nEspecialidad: " + medico.getEspecialidad());
-        System.out.printf("\nId: " + medico.getId());
-    }
 
 
 }

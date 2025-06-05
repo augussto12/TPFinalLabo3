@@ -77,7 +77,7 @@ public class Agenda {
         } while (idRepetido);
         Scanner scan = new Scanner(System.in);
         System.out.printf("\nMEDICOS DISPONIBLES:\n");
-        LeerArchivoPersonas.mostrarListaMedicos(medicos);
+        Medico.mostrarListaMedicos(medicos);
         System.out.printf("\nIngrese el Id del medico que quiere:");
         int id = Validar.validarEntero();
         scan.nextLine();
@@ -105,15 +105,6 @@ public class Agenda {
     }
 
 
-    public static Paciente encontrarPaciente(long dni, List<Paciente> pacientes) {
-        Paciente pacienteEncontrado = null;
-        for (Paciente p : pacientes) {
-            if (dni == p.getDni()) {
-                pacienteEncontrado = p;
-            }
-        }
-        return pacienteEncontrado;
-    }
 
     public static void mostrarTurnosPropios(Paciente paciente, List<Turno> listaTurnos) {
         int contador = 1;
@@ -130,7 +121,7 @@ public class Agenda {
     public static void mostrarTodosMisTurnos(Paciente paciente, List<Paciente> pacientes) throws JSONException {
         Agenda turnos = LeerArchivoAgenda.LeerArchivo();
         List<Turno> listadoTurnos = turnos.getAgenda();
-        Paciente pacienteEncontrado = Agenda.encontrarPaciente(paciente.getDni(), pacientes);
+        Paciente pacienteEncontrado = Paciente.encontrarPaciente(paciente.getDni(), pacientes);
         Agenda.mostrarTurnosPropios(pacienteEncontrado, listadoTurnos);
     }
 

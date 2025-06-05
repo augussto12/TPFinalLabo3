@@ -126,6 +126,7 @@ public class GrabarJSONPersonas {
         Medico medico = Medico.pedirDatosParaRegistrarMedico(medicos);
         medicos = agregarUnMedico(medico);
         agregarMedicoAlJSON(medico);
+        System.out.println("\nSe agrego correctamente.");
         return medicos;
     }
 

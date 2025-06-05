@@ -19,6 +19,7 @@ public class MenuPrincipal {
     public static void menu() throws JSONException {
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
         List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
+        List<Admin> administrtadores = LeerArchivoPersonas.llenarListaAdmin();
         Scanner scan = new Scanner(System.in);
 
         int eleccion = 0;
@@ -33,73 +34,19 @@ public class MenuPrincipal {
         eleccion = Validar.validarSwitch(4);
         switch (eleccion) {
             case 1:
-                System.out.printf("\nIngrese su ID: ");
-                int idMedico = scan.nextInt();
+                Medico medico = Medico.pedirDatosDeInicioDeSesion(medicos);
+                System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
-
-                List<Medico> medicos1 = LeerArchivoPersonas.llenarlistamedicos();
-                Medico medico = Medico.buscarMedicoPorId(idMedico, medicos);
-
-                if (medico == null) {
-                    System.out.println("\nMédico no encontrado.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
-
-                System.out.printf("\nIngrese su contraseña: ");
-                String contraseniaMedico = scan.nextLine();
-                if (!medico.getContrasenia().equals(contraseniaMedico)) {
-                    System.out.println("\nContraseña incorrecta.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
-
                 menuMedico(medico);
                 break;
             case 2:
-                System.out.printf("\ningrese su DNI: ");
-                long dniUsuario = Validar.validarLong();
-
-
-                Paciente paciente = Paciente.buscarPacientePorDNI(dniUsuario, pacientes);
-                if (paciente == null) {
-                    System.out.println("Paciente no encontrado.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
-                System.out.printf("\nIngrese su contrasenia: ");
-                String contrasenia = scan.nextLine();
-                if (!paciente.getContrasenia().equals(contrasenia)) {
-                    System.out.println("Contrasenia incorrecta.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
+                Paciente paciente = Paciente.iniciarSesionPaciente(pacientes);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
                 menuUser(paciente);
                 break;
             case 3:
-                List<Admin> admins = LeerArchivoPersonas.llenarListaAdmin();
-                System.out.printf("\ningrese su usuario: ");
-                String userAdmin = scan.nextLine();
-                Admin admin = Admin.buscarAdminPorUser(userAdmin, admins);
-                if (admin == null) {
-                    System.out.println("Admin no encontrado.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
-                System.out.println("\nIngrese su contrasenia: ");
-                String contraseniaAdmin = scan.nextLine();
-                if (!admin.getContrasenia().equals(contraseniaAdmin)) {
-                    System.out.println("Contrasenia incorrecta.");
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menu();
-                }
-                menuAdmin();
+                Admin.iniciarSesionAdmin(administrtadores);
                 break;
             case 4:
                 pacientes = GrabarJSONPersonas.registrarPaciente(pacientes);
@@ -108,14 +55,11 @@ public class MenuPrincipal {
                 menu();
                 break;
         }
-
     }
 
     public static void menuMedico(Medico medico) throws JSONException {
-        List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
-        List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
-
         Agenda agenda = LeerArchivoAgenda.LeerArchivo();
+
         Scanner scan = new Scanner(System.in);
         int opcion = 0;
         System.out.println("\n====== MENÚ MÉDICO =======");
@@ -126,17 +70,13 @@ public class MenuPrincipal {
         opcion = Validar.validarSwitch(2);
         switch (opcion) {
             case 1:
-                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getNombreYapellido());
+                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getId());
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuMedico(medico);
                 break;
             case 2:
-                LeerArchivoAgenda.mostrarTurnosDeUnMedico(agenda.getAgenda(), medico.getNombreYapellido());
-                System.out.println("\nIngrese el id del turno a reprogramar: ");
-                int idDeTurnoAreprogramar = scan.nextInt();
-                agenda.setAgenda(LeerArchivoAgenda.reprogramarTurno(agenda.getAgenda(), idDeTurnoAreprogramar, medico.getId()));
-                GrabarJSONAgenda.llenarAgenda(agenda);
+                LeerArchivoAgenda.manejoReprogramacion(medico, scan, agenda);
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuMedico(medico);
@@ -148,9 +88,8 @@ public class MenuPrincipal {
     }
 
     public static void menuUser(Paciente paciente) throws JSONException {
-        List<Medico> medicos = LeerArchivoPersonas.llenarlistamedicos();
         List<Paciente> pacientes = LeerArchivoPersonas.llenarlistaPacientes();
-        Agenda agenda = new Agenda();
+        Agenda agenda = LeerArchivoAgenda.LeerArchivo();
         Scanner scan = new Scanner(System.in);
         int opcion = 0;
         System.out.println("\n====== MENÚ PACIENTE =======");
@@ -163,29 +102,23 @@ public class MenuPrincipal {
         opcion = Validar.validarSwitch(4);
         switch (opcion) {
             case 1:
-                LeerArchivoPersonas.mostrarListaMedicos(medicos);
+                MostrarListado listadoMedicos = new Medico();
+                listadoMedicos.mostrarLista();
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuUser(paciente);
                 break;
             case 2:
-                try {
-                    Turno nuevo = Agenda.sacarTurno(paciente);
-                    GrabarJSONAgenda.guardarEnjsonAgendaConUnTurnoNuevo(nuevo);
-                    System.out.print("\nPresione Enter para continuar...");
-                    scan.nextLine();
-                    menuUser(paciente);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+                Turno nuevo = Agenda.sacarTurno(paciente);
+                GrabarJSONAgenda.guardarEnjsonAgendaConUnTurnoNuevo(nuevo);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
+                menuUser(paciente);
                 break;
             case 3:
-                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
-                System.out.println("Id del turno que desea eliminar: ");
-                int idAeliminar = scan.nextInt();
-                Agenda.eliminarUnTurnoMio(idAeliminar, agenda);
-                System.out.printf("\nTurnos actualizados: ");
-                Agenda.mostrarTodosMisTurnos(paciente, pacientes);
+                Paciente.eliminarTurno(paciente,pacientes,scan,agenda);
+                System.out.print("\nPresione Enter para continuar...");
+                scan.nextLine();
                 menuUser(paciente);
                 break;
             case 4:
@@ -229,13 +162,12 @@ public class MenuPrincipal {
                 break;
             case 2:
                 medicos = GrabarJSONPersonas.registrarMedico(medicos);
-                System.out.println("\nSe agrego correctamente.");
                 System.out.print("\nPresione Enter para continuar...");
                 scan.nextLine();
                 menuAdmin();
                 break;
             case 3:
-                LeerArchivoPersonas.mostrarTodosLosMedicos(medicos);
+                Medico.mostrarTodosLosMedicos(medicos);
                 System.out.println("\nIngrese el id del medico a eliminar (tambien se van a eliminar sus turnos):");
                 int idAeliminar = Validar.validarEntero();
                 GrabarJSONPersonas.eliminarMedico(idAeliminar);
@@ -278,7 +210,6 @@ public class MenuPrincipal {
         }
 
     }
-
 
 
 }
