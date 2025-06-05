@@ -29,7 +29,6 @@ public class Turno {
         this.idTurno = idTurno;
     }
 
-
     public Turno() {
     }
 
@@ -82,7 +81,7 @@ public class Turno {
                     System.out.println("La clinica atiende de 08:00 a 20:00");
                     hora = Validar.validarEntero();
                 }
-                System.out.printf(": ");
+                System.out.printf("minutos: ");
                 int minuto = Validar.validarEntero();
                 while ((minuto != 00) && (minuto != 30)) {
                     System.out.println("Se puede sacar turno en hora en punto o y media");
@@ -124,13 +123,6 @@ public class Turno {
             throw new TurnoNoDisponibleException("Turno no disponible, turno ocupado.");
         }
         return fecha;
-    }
-
-
-    @Override
-    public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return "Cita: " + fecha.format(formatter) + ", " + medico + ", " + cliente + ", Motivo: " + motivo;
     }
 
 }

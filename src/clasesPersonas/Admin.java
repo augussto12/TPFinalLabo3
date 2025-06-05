@@ -5,6 +5,7 @@ import Validaciones.Validar;
 import manejoJSON.GrabarJSONAgenda;
 import manejoJSON.GrabarJSONPersonas;
 import manejoJSON.LeerArchivoPersonas;
+import menu.MenuAdmin;
 import menu.MenuPrincipal;
 import org.json.JSONException;
 
@@ -41,7 +42,7 @@ public class Admin extends Persona {
             scan.nextLine();
             MenuPrincipal.menu();
         }
-        System.out.println("\nIngrese su contrasenia: ");
+        System.out.printf("\nIngrese su contrasenia: ");
         String contraseniaAdmin = scan.nextLine();
         if (!admin.getContrasenia().equals(contraseniaAdmin)) {
             System.out.println("Contrasenia incorrecta.");
@@ -49,7 +50,7 @@ public class Admin extends Persona {
             scan.nextLine();
             MenuPrincipal.menu();
         }
-        MenuPrincipal.menuAdmin();
+        MenuAdmin.menuAdmin();
     }
 
 
